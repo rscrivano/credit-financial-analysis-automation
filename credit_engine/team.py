@@ -202,7 +202,9 @@ PROMPTS = {
 
 class Team:
     def __init__(self, model, run_id: str, ai: dict, budget: Optional[int] = None, cache_only: bool = False):
-        self.cache_only = cache_only  # reuse cached analyst work only; never make a new AI call
+        import os
+        # reuse cached analyst work only; never make a new AI call (CFAA_CACHE_ONLY=1 forces it app-wide, e.g. for demos)
+        self.cache_only = cache_only or os.environ.get("CFAA_CACHE_ONLY") == "1"
         self.model, self.run_id, self.ai = model, run_id, ai
         self.budget = budget if budget is not None else RUN_TOKEN_BUDGET  # read at run time
         self.spent = 0
