@@ -1,0 +1,159 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CFAA Slides</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/5.1.0/reveal.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/5.1.0/theme/black.min.css">
+<style>
+  :root { --r-background-color:#000; --r-main-font: Consolas, "IBM Plex Mono", monospace; --r-heading-font: Consolas, "IBM Plex Mono", monospace;
+          --r-main-color:#e8e8e8; --r-heading-color:#ffa028; --r-link-color:#4fc3f7; --r-main-font-size: 34px; }
+  .reveal h1, .reveal h2 { text-transform: none; letter-spacing: .01em; }
+  .reveal h2 { font-size: 1.45em; border-bottom: 3px solid #ffa028; padding-bottom: .15em; margin-bottom: .45em; }
+  .reveal .bar { position: fixed; top: 0; left: 0; right: 0; height: 10px; background: #ffa028; }
+  .reveal .big { font-size: 2.2em; color: #ffa028; font-weight: 700; line-height: 1.1; }
+  .reveal .muted { color: #9a9a9a; font-size: .62em; }
+  .reveal ul { font-size: .8em; line-height: 1.45; }
+  .reveal li { margin: .25em 0; }
+  .reveal table { font-size: .62em; border-collapse: collapse; width: 100%; }
+  .reveal table th { color: #ffa028; border-bottom: 2px solid #ffa028; }
+  .reveal table td, .reveal table th { padding: .3em .5em; border-bottom: 1px solid #333; text-align: left; }
+  .reveal td.n, .reveal th.n { text-align: right; }
+  .reveal .cols { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; align-items: start; }
+  .reveal .kpis { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; margin-top: .6em; }
+  .reveal .kpi { border: 1px solid #333; border-top: 4px solid #ffa028; padding: .4em .5em; text-align: left; }
+  .reveal .kpi .v { font-size: 1.35em; color: #ffa028; font-weight: 700; }
+  .reveal .kpi .k { font-size: .5em; color: #9a9a9a; text-transform: uppercase; }
+  .reveal figure { margin: 0; } .reveal figure img { max-height: 470px; width: auto; max-width: 100%; border: 1px solid #333; margin: 0; }
+  .reveal figcaption { font-size: .45em; color: #9a9a9a; }
+  .reveal .diagram svg { width: 100%; height: auto; max-height: 520px; }
+  .reveal .quote { font-size: .72em; font-style: italic; border-left: 5px solid #4fc3f7; padding-left: .7em; text-align: left; }
+</style>
+</head>
+<body>
+<div class="reveal"><div class="slides">
+
+<section>
+  <div class="bar"></div>
+  <p class="muted">MGMT 409 · FINAL PROJECT · RYAN SCRIVANO</p>
+  <h1 style="font-size:1.9em">Credit/Financial Analysis Automation</h1>
+  <p>An AI credit team that turns SEC filings or a private company's statements into a full credit, industry and
+  economic analysis <b style="color:#ffa028">in minutes</b>.</p>
+  <p class="muted">Code calculates every number · AI writes the analysis · every figure it cites is checked<br>
+  github.com/rscrivano/credit-financial-analysis-automation</p>
+</section>
+
+<section>
+  <h2>The problem</h2>
+  <div class="big">Up to 3 hours</div>
+  <p style="font-size:.75em">to review one company's financials and build a credit spread by hand</p>
+  <ul>
+    <li>Key 10-K/10-Q statements into a spread, build last-twelve-months figures, adjust for leases</li>
+    <li>Compute ratios, map them to ratings, find peers, read the debt notes, check the economy</li>
+    <li>Private borrowers arrive as PDFs in their own format, often unaudited, with no comps on hand</li>
+    <li>Most of the time goes to <b>gathering and calculating</b>, not judging, and that's where errors creep in</li>
+  </ul>
+</section>
+
+<section>
+  <h2>What's new</h2>
+  <table>
+    <tr><th>Tool</th><th>Strength</th><th>Leaves to the analyst</th></tr>
+    <tr><td>Bloomberg / Capital IQ</td><td>Data, filings, screening</td><td>Spread, scorecard, peer choice, write-up; no private companies</td></tr>
+    <tr><td>Bank spreading tools</td><td>Private spreads in a lending workflow</td><td>Enterprise setup; economic and sector narrative</td></tr>
+    <tr><td>ChatGPT</td><td>Fluent summaries</td><td>Reliable math, real numbers, a rating method</td></tr>
+    <tr><td><b style="color:#ffa028">CFAA</b></td><td colspan="2"><b>Public + private</b> · tested scorecard · S&amp;P-style anchor · named peers from 8,900+ SEC filers · stress tests · red flags · every assumption listed · AI narrative with quote and number checks</td></tr>
+  </table>
+  <p class="muted">An add-on to existing tools, not a replacement: it does the first 90% so the analyst starts from a complete, checkable picture.</p>
+</section>
+
+<section>
+  <h2>The agent team</h2>
+  <div class="diagram">{{svg:agent}}</div>
+  <p class="muted">No tools, no web access: code decides what each agent sees · 3 tries, then escalate to the Manager · results cached</p>
+</section>
+
+<section>
+  <h2>One real run: Southwest (LUV)</h2>
+  <table>
+    <tr><th>Step</th><th>What happened</th><th class="n">Tokens</th></tr>
+    <tr><td>Code</td><td>SEC data → spread → Reported BBB-, Lease-adj. BB+, S&amp;P-style BBB/BBB-, 8 peers, stress, macro</td><td class="n">0</td></tr>
+    <tr><td>Accounting</td><td>10-K notes: $272m letters of credit, $1.5B revolver, senior notes; quotes verified</td><td class="n">4,281</td></tr>
+    <tr><td>Credit · Macro · Micro</td><td>In parallel: rationale and outlook; rates and airline traffic; position vs Delta, United, American</td><td class="n">4,302</td></tr>
+    <tr><td>Manager</td><td>One review, guidance, no escalations</td><td class="n">1,197</td></tr>
+    <tr><td>Writer</td><td>Summary, SWOT, sections; number check passed</td><td class="n">3,235</td></tr>
+    <tr><td><b>Total</b></td><td>Six agents, every check passed first try</td><td class="n"><b>13,015</b></td></tr>
+  </table>
+  <p class="muted">Opening the same company again: 0 tokens (cache)</p>
+</section>
+
+<section>
+  <h2>Demo</h2>
+  <div class="cols">
+    {{img:02_summary|Summary: score, ratings, AI write-up|760}}
+    {{img:10_comparison|Compare: LUV vs ULCC vs DAL|760}}
+  </div>
+</section>
+
+<section>
+  <h2>Demo: depth and private companies</h2>
+  <div class="cols">
+    {{img:05_debt_structure|Debt structure and liquidity|720}}
+    {{img:12_private_red_flags|Private upload: balance-sheet red flag|700}}
+  </div>
+</section>
+
+<section>
+  <h2>Cost (measured from the token log)</h2>
+  <div class="kpis">
+    <div class="kpi"><div class="v">11,479</div><div class="k">tokens per company (median, 12 runs) ≈ $0.05</div></div>
+    <div class="kpi"><div class="v">$1.21</div><div class="k">per analyst per month</div></div>
+    <div class="kpi"><div class="v">$12.1k</div><div class="k">per month at 10,000 users</div></div>
+  </div>
+  <ul>
+    <li>Cache: repeat company 11.5k → <b>0</b> · Comparison: ~34k → <b>2.2k</b></li>
+    <li>Chat: 2,246 → <b>874</b> per question · starter questions → <b>0</b></li>
+    <li>Quality kept: every number still from code; checks unchanged</li>
+  </ul>
+  <p class="muted">Reference price: GPT-5 list price ($1.25 / $0.125 cached / $10 per 1M), as the course gpt-6-luna price isn't published</p>
+</section>
+
+<section>
+  <h2>Safety: 17/17 tests pass</h2>
+  <ul>
+    <li><b>Prompt injection:</b> instruction-like text stripped from filings and uploads; agents have no tools</li>
+    <li><b>Hallucination:</b> quotes must be in the filing, numbers in the brief, or the answer is retried</li>
+    <li><b>Loops:</b> 3 attempts, then escalate to the Manager; failed tokens still counted</li>
+    <li><b>Overspend:</b> 40k per run, 400k per day, rate limits, cache</li>
+    <li><b>Forged inputs and hostile files:</b> server-side allow-lists; files checked by content; macros and PDF scripts refused</li>
+    <li><b>Bad data:</b> balance sheet must balance, or a red flag is raised</li>
+  </ul>
+</section>
+
+<section>
+  <h2>Impact and what's next</h2>
+  <div class="cols">
+    <div>
+      <div class="big">3 h → minutes</div>
+      <p style="font-size:.6em">≈ 97% faster per company · up to 58 h/month back for an analyst covering 20 companies · ≈ $0.05 of AI per company</p>
+      <p class="quote">"It saves time, allows for an analyst to quickly compare companies in the same sector, and analyze
+      economic and financial information to conduct efficient investment research." — Ryan Scrivano, user</p>
+    </div>
+    <div>
+      <ul style="font-size:.66em">
+        <li>Market data (bond spreads, CDS) for relative value</li>
+        <li>Back-test indicative ratings vs. agency history</li>
+        <li>Hosted version: accounts, portfolios, filing alerts</li>
+        <li>OCR for scanned statements; covenant tracking</li>
+        <li>Wider testing with credit analysts and lenders</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+</div></div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/5.1.0/reveal.min.js"></script>
+<script>Reveal.initialize({ hash: true, width: 1280, height: 720, margin: 0.05, transition: 'fade' });</script>
+</body>
+</html>

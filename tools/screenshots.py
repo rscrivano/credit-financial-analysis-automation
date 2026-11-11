@@ -130,19 +130,19 @@ def main():
         def landing():
             c.nav(APP)
             c.wait("document.querySelector('.steps')")
-            c.shot(out / "01_start_page.png", 2000)
+            c.shot(out / "01_start_page.png", 1250)
 
         def company():
             c.type_into("#ticker", a.ticker)
             c.js("document.getElementById('go').click()")
             c.wait("document.querySelector('.kpis')", 120)
             time.sleep(2)
-            c.shot(out / "02_summary.png", 2600)
+            c.shot(out / "02_summary.png", 2600, selector="#results")
             for tab, fn in (("2 SWOT", "03_swot"), ("3 CREDIT", "04_credit"), ("4 DEBT", "05_debt_structure"),
                             ("7 SECTOR", "06_sector_peers"), ("11 AGENTS", "07_agents")):
                 c.click_text(".tab", tab)
                 c.js("scrollTo(0, 0)")
-                c.shot(out / f"{fn}.png", 2600)
+                c.shot(out / f"{fn}.png", 2600, selector="#results")
 
         def chat():
             c.js("document.getElementById('{\"i\":0,\"type\":\"chip\"}').click()")
@@ -165,7 +165,7 @@ def main():
             c.js("document.getElementById('cmp-go').click()")
             c.wait("document.querySelector('#pick-wrap') && getComputedStyle(document.querySelector('#pick-wrap')).display !== 'none'", 180)
             time.sleep(2)
-            c.shot(out / "10_comparison.png", 3200)
+            c.shot(out / "10_comparison.png", 3200, selector="#results")
 
         def private():
             c.click_text("#mode label", "Private")
@@ -175,7 +175,7 @@ def main():
                    files=[str(ROOT / "data" / "samples" / "sample_private_reviewed_statements.pdf")])
             c.wait("[...document.querySelectorAll('h3')].some(h => h.innerText.toUpperCase().includes('CONFIRM WHAT'))", 60)
             time.sleep(1)
-            c.shot(out / "11_private_review.png", 2600)
+            c.shot(out / "11_private_review.png", 2600, selector="#review")
             c.js("document.querySelector('#sector input').focus()")
             c.send("Input.insertText", text="Airlines")
             time.sleep(0.8)
@@ -186,7 +186,7 @@ def main():
             c.wait("document.querySelector('.kpis')", 120)
             c.click_text(".tab", "8 ACCOUNTING")
             c.js("scrollTo(0, 0)")
-            c.shot(out / "12_private_red_flags.png", 2600)
+            c.shot(out / "12_private_red_flags.png", 2600, selector="#results")
 
         def docs():
             for f, n in (("agent_design.html", "13_agent_design_diagram"), ("user_guide.html", "14_user_guide")):
@@ -197,7 +197,10 @@ def main():
                          ("comparison", compare), ("private upload", private), ("documents", docs)):
             step(name, fn)
     finally:
-        br.terminate()
+        subprocess.run(["taskkill", "/PID", str(br.pid), "/T", "/F"], capture_output=True)  # whole browser tree
+        subprocess.run(["powershell", "-NoProfile", "-Command",  # helpers that outlive the tree (only this run's profile)
+                        "Get-CimInstance Win32_Process | Where-Object { $_.CommandLine -like '*cfaa_shots_*' } | "
+                        "ForEach-Object { Stop-Process -Id $_.ProcessId -Force -ErrorAction SilentlyContinue }"], capture_output=True)
         subprocess.run(["taskkill", "/PID", str(app.pid), "/T", "/F"], capture_output=True)
         shutil.rmtree(prof, ignore_errors=True)
     print("done:", ", ".join(done))

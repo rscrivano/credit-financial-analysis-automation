@@ -1,0 +1,296 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CFAA Final Report</title>
+<style>
+  :root { --bg:#000; --panel:#0b0b0b; --line:#2a2a2a; --amber:#ffa028; --text:#e6e6e6; --muted:#9a9a9a; --cyan:#4fc3f7; --good:#4caf50; --bad:#ff5252; }
+  * { box-sizing: border-box; }
+  body { margin:0; background:var(--bg); color:var(--text); font:15.5px/1.65 Georgia, "Times New Roman", serif; }
+  .wrap { max-width: 900px; margin: 0 auto; padding: 0 18px 60px; }
+  header.top { background: var(--amber); color:#000; padding: 10px 18px; font:700 13px/1.4 Consolas, monospace; letter-spacing:.08em; }
+  header.top b { background:#000; color:var(--amber); padding:2px 8px; margin-right:10px; }
+  h1 { color:var(--amber); font:700 30px/1.25 Consolas, "IBM Plex Mono", monospace; margin: 30px 0 8px; }
+  h2 { color:var(--amber); font:700 18px/1.3 Consolas, monospace; letter-spacing:.06em; text-transform:uppercase;
+       border-bottom:1px solid var(--amber); padding-bottom:5px; margin: 42px 0 14px; }
+  h3 { color:#fff; font:700 15px/1.4 Consolas, monospace; margin: 24px 0 6px; }
+  p, li { color: var(--text); }
+  a { color: var(--cyan); }
+  .lede { font-size: 17px; color: #fff; }
+  .meta { font: 13px/1.7 Consolas, monospace; color: var(--muted); }
+  .meta b { color: var(--text); }
+  code { font: 13px Consolas, monospace; background:#151515; border:1px solid var(--line); color:var(--amber); padding:0 4px; }
+  .box { background:var(--panel); border:1px solid var(--line); border-left:3px solid var(--amber); padding:12px 16px; margin:16px 0; }
+  .quote { border-left-color: var(--cyan); font-style: italic; font-size: 16.5px; }
+  .kpis { display:grid; grid-template-columns: repeat(4, 1fr); gap:10px; margin: 18px 0; }
+  .kpi { background:var(--panel); border:1px solid var(--line); border-top:2px solid var(--amber); padding:10px 12px; }
+  .kpi .v { font:700 24px/1.2 Consolas, monospace; color: var(--amber); }
+  .kpi .k { font:12px/1.4 Consolas, monospace; color: var(--muted); text-transform: uppercase; }
+  table { width:100%; border-collapse:collapse; margin:12px 0; font:13px/1.5 Consolas, monospace; }
+  th { text-align:left; color:var(--amber); border-bottom:1px solid var(--amber); padding:6px 8px; text-transform:uppercase; font-size:11.5px; }
+  td { border-bottom:1px solid var(--line); padding:6px 8px; vertical-align:top; }
+  td.n, th.n { text-align:right; }
+  tr.total td { border-top:1px solid var(--amber); font-weight:700; color: var(--amber); }
+  figure { margin: 18px 0; page-break-inside: avoid; }
+  figure img { width:100%; border:1px solid var(--line); display:block; }
+  figcaption { font: 12.5px/1.5 Consolas, monospace; color: var(--muted); margin-top: 6px; }
+  .diagram { background:var(--panel); border:1px solid var(--line); padding:8px; overflow-x:auto; }
+  .diagram svg { width:100%; min-width: 700px; height:auto; display:block; }
+  .two { display:grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  .pass { color: var(--good); font-weight:700; }
+  @media (max-width: 680px) { .kpis { grid-template-columns: 1fr 1fr; } .two { grid-template-columns: 1fr; } h1 { font-size: 23px; } }
+  @media print {
+    body { background:#fff; color:#111; font-size: 11pt; } p, li, td { color:#111; } .lede { color:#000; }
+    header.top { background:#fff; color:#000; border-bottom:2px solid #c55a11; } h1, h2, th, .kpi .v { color:#c55a11; }
+    h2 { page-break-after: avoid; } .box, .kpi { background:#fafafa; } code { background:#f3f3f3; color:#000; }
+    figure img { border-color:#ccc; } a { color:#0b57d0; }
+  }
+</style>
+</head>
+<body>
+<header class="top"><b>CFAA</b>MGMT 409 · FINAL PROJECT REPORT</header>
+<div class="wrap">
+
+<!-- ============================================================ 1 -->
+<h1>Credit/Financial Analysis Automation</h1>
+<p class="lede">An AI analyst team that turns a public company's SEC filings, or a private company's financial
+statements, into a full credit, industry and economic analysis in minutes. Code calculates every number; the AI
+writes the analysis, and every figure it cites is checked against the data.</p>
+<p class="meta"><b>Author:</b> Ryan Scrivano · Yale MGMT 409 · November 2026<br>
+<b>Repository:</b> <a href="https://github.com/rscrivano/credit-financial-analysis-automation">github.com/rscrivano/credit-financial-analysis-automation</a> (private; <code>zlisto</code> invited)<br>
+<b>Run it:</b> local Dash app. Fresh clone + <code>pip install -r requirements.txt</code> + <code>python app.py</code>, with
+<code>.env</code> one folder up. Tested from a fresh copy: 4 min 41 s to install, 79/79 tests pass.<br>
+<b>Companion documents in the repo:</b> <code>docs/user_guide.html</code> (how to use it) and
+<code>docs/agent_design.html</code> (agent organization in detail).</p>
+
+<div class="kpis">
+  <div class="kpi"><div class="v">3 h → min</div><div class="k">Credit spread and review time (user-measured)</div></div>
+  <div class="kpi"><div class="v">11.5k</div><div class="k">Tokens per full AI team run (median, 12 runs)</div></div>
+  <div class="kpi"><div class="v">≈ $0.05</div><div class="k">AI cost per company (reference price)</div></div>
+  <div class="kpi"><div class="v">17 / 17</div><div class="k">Safety tests passing</div></div>
+</div>
+
+{{img:01_start_page|The start page tells a first-time user what the product does and gives four ways to start. Every tab also opens with a one-line description.|1226}}
+
+<!-- ============================================================ 2 -->
+<h2>2. Motivation</h2>
+<h3>Who has the problem</h3>
+<p>Credit analysts, leveraged-finance and private-credit teams, commercial and middle-market lenders, and investment
+professionals who must form a view on a company's ability to repay debt. The same work also sits on the desk of every
+analyst who covers a sector, and of students learning credit.</p>
+<h3>How they handle it today</h3>
+<p>A thorough first look at one company means:</p>
+<ul>
+  <li>pulling the latest 10-K and 10-Q and keying the income statement, balance sheet and cash flows into a spreading template;</li>
+  <li>building last-twelve-months figures from year-to-date numbers;</li>
+  <li>adjusting debt for leases and pensions, computing a dozen ratios and mapping them to a rating scale;</li>
+  <li>finding comparable companies and their ratios;</li>
+  <li>reading the debt, lease and commitments notes for maturities and off-balance-sheet items;</li>
+  <li>checking the macro backdrop, and only then writing it up.</li>
+</ul>
+<p>For a private borrower it's harder still: the statements arrive as PDFs or spreadsheets in the company's own format,
+often unaudited, and there are no public comparables on hand.</p>
+<h3>What it costs</h3>
+<p>In my own work this takes <b>up to 3 hours per company</b> before any real thinking happens. Most of that time is
+gathering and calculating, not judging. It is also where errors creep in: a mis-keyed balance-sheet line, a missed lease
+liability or an annualization mistake can move a rating by several notches. The professional alternatives are
+expensive: a Bloomberg Terminal or S&amp;P Capital IQ seat is widely reported at tens of thousands of dollars per user
+per year, and even those leave the spreading, peer selection and write-up to the analyst.</p>
+
+<!-- ============================================================ 3 -->
+<h2>3. What is new here</h2>
+<table>
+  <tr><th>Product</th><th>What it does well</th><th>What it leaves to the analyst</th></tr>
+  <tr><td>Bloomberg Terminal</td><td>Market data, bond pricing, filings, news, agency ratings</td><td>Building the spread and scorecard, choosing peers, the written credit view; private companies not covered</td></tr>
+  <tr><td>S&amp;P Capital IQ</td><td>Standardized financials, screening, comparable companies</td><td>Rating logic, lease-adjusted view, stress tests, narrative; private statements must be keyed in</td></tr>
+  <tr><td>Moody's CreditLens and similar bank spreading tools</td><td>Spreading private statements, scorecards inside a lending workflow</td><td>Enterprise license and setup; economic and sector narrative written by hand</td></tr>
+  <tr><td>ChatGPT / general AI assistants</td><td>Fluent summaries of a filing</td><td>No reliable math, invented numbers, no rating method, no audit trail</td></tr>
+  <tr><td><b>This app (CFAA)</b></td><td colspan="2">Public <i>and</i> private companies in one tool; tested code for every number and rating; an AI analyst team for the narrative with quote and number checks; sector and named-peer benchmarks from 8,900+ SEC filers; stress tests; data-integrity red flags; a list of every assumption with options; comparisons, exports, a watchlist and an analyst chat.</td></tr>
+</table>
+<p><b>Honest differentiation.</b> CFAA is not a replacement for a terminal: it has no market prices, spreads or
+bond-level recovery analysis. It is an <b>add-on</b> that does the first 90% of a credit review (the spread, the
+scorecard, the peer set, the economic context and a first draft) so the analyst starts from a complete, checkable
+picture. Three design choices set it apart from a general AI assistant:</p>
+<ul>
+  <li><b>The AI never does math.</b> Ratings come from my credit spread scorecard, ported from Excel and regression-tested
+    against the original workbooks. The AI cannot change a rating, only explain it.</li>
+  <li><b>Every number and quote is verified.</b> An AI output that cites a figure not in its data, or a quote not in the
+    filing, is rejected and retried, and is escalated after three attempts.</li>
+  <li><b>Nothing is silently assumed.</b> Judgment calls (business risk, lease treatment, cash netting, missing
+    revolver data) are listed with options, and changing one re-scores instantly without AI cost.</li>
+</ul>
+
+<h3>What the analyst sees</h3>
+{{img:02_summary|Summary tab for NVIDIA (NVDA): credit score, Reported and Lease-adjusted ratings, indicative S&P-style rating, agency ratings, and the Report Writer's summary.|910}}
+{{img:10_comparison|Comparison mode: Southwest vs Frontier vs Delta side by side, with the best value in each row highlighted, a credit-score chart, a ranking and a written comparison. A toggle opens any one company in depth.|1500}}
+
+<h3>How well it works</h3>
+<ul>
+  <li><b>Faithful to the original model:</b> the Python scorecard reproduces the Excel credit spread workbooks
+    (regression tests). SEC-derived spreads matched the hand-built workbooks on 33 of 48 values exactly, with every
+    difference explained by source (for example, a different debt tag).</li>
+  <li><b>Private path proven:</b> Southwest's public numbers entered through the private-company upload path matched
+    the public path on 21 of 21 periods. A deliberately mis-keyed equity figure in the sample PDF is flagged in red.</li>
+  <li><b>Calibration:</b> indicative ratings line up with agency ratings disclosed in filings. For example, Coca-Cola
+    scores A+/A against S&amp;P A+ and Moody's A1; Delta scores BBB/BBB- against Moody's Baa2. Known gaps (Pfizer's
+    one-off items, Caterpillar's captive finance arm) are documented.</li>
+  <li><b>Coverage:</b> 10 of 11 large public companies tested reach a full scorecard. Ford, whose debt sits in
+    company-specific tags, is flagged "Debt looks incomplete" instead of being given a false rating.</li>
+</ul>
+
+<!-- ============================================================ 4 -->
+<h2>4. The agents</h2>
+<p>The app is a small credit team: four specialist analysts, a manager and a writer, plus three on-demand agents. Code
+decides what each agent sees: a compact brief of computed figures, or screened filing text. Agents have <b>no tools and
+no web access</b>, so they can only read what they're given and write a structured answer.</p>
+<div class="diagram">{{svg:agent}}</div>
+<p class="meta">Amber = AI agent; blue = code and data; green = checks applied to every output; red dashed = escalation
+after three failed attempts. Credit, Macro and Micro run in parallel.</p>
+
+<table>
+  <tr><th>Agent</th><th>Reads</th><th>Writes (JSON schema)</th><th>Check</th></tr>
+  <tr><td>Accounting Analyst</td><td>Screened 10-K/10-Q notes or uploaded notes</td><td>Off-balance-sheet items, GAAP findings, debt instruments, data-quality note</td><td>Quote must be in the filing; amount must be in the quote</td></tr>
+  <tr><td>Financial/Credit Analyst</td><td>Code-computed ratings, ratios and notches, stress results, red flags</td><td>Rationale, strengths, weaknesses, outlook</td><td>Numbers must be in the brief</td></tr>
+  <tr><td>Macro Economic Analyst</td><td>FRED macro and industry series, 2020-recession sector data</td><td>Economic view, opportunities, threats</td><td>Numbers must be in the brief</td></tr>
+  <tr><td>Micro (Sector) Analyst</td><td>Company vs named competitors and peer median</td><td>Positioning, peer points, drivers</td><td>Numbers must be in the brief</td></tr>
+  <tr><td>Manager</td><td>Digest of the three analysts, red flags, escalations</td><td>One review: conflicts, escalation decisions, guidance</td><td>Schema</td></tr>
+  <tr><td>Report Writer</td><td>Verified analyst outputs and Manager guidance</td><td>Summary, SWOT, key concerns, sections</td><td>Numbers must be in the brief</td></tr>
+  <tr><td>Comparison Writer · Analyst Chat · Label Mapper</td><td>On demand: multi-company metrics; the analysis on screen; unmatched statement labels</td><td>Comparison and ranking; answers; field mappings</td><td>Numbers or fields checked</td></tr>
+</table>
+
+<h3>Model and why</h3>
+<p><code>gpt-6-luna</code> through Portkey with the course key, set in one place (<code>OPENAI_MODEL</code> overrides it).
+Outputs use JSON-schema structured output (PydanticAI <code>NativeOutput</code>), because the course model rejects
+function tools, and because schemas make every answer machine-checkable. Reasoning effort is set to low: the agents
+interpret facts that code has already computed, so deep reasoning adds hidden tokens without improving the result.</p>
+
+<h3>One real run, step by step: Southwest Airlines (LUV)</h3>
+<table>
+  <tr><th>#</th><th>Step</th><th>What happened</th><th class="n">Tries</th><th class="n">In</th><th class="n">Out</th></tr>
+  <tr><td>0</td><td>Code</td><td>SEC XBRL facts → spread (LTM Sep-2026) → Reported BBB-, Lease-adjusted BB+, S&amp;P-style BBB/BBB-; 8 named peers; stress tests; FRED macro</td><td class="n">–</td><td class="n">0</td><td class="n">0</td></tr>
+  <tr><td>1</td><td>Accounting</td><td>Read the 10-K notes: letters of credit ($272m), the DOT settlement, the $1.5B revolver and senior notes; every quote verified</td><td class="n">1</td><td class="n">2,694</td><td class="n">1,587</td></tr>
+  <tr><td>2</td><td>Credit · Macro · Micro</td><td>In parallel: rating rationale and outlook; rates, spreads, airline traffic; position vs Delta, United, American and others</td><td class="n">1 each</td><td class="n">2,529</td><td class="n">1,773</td></tr>
+  <tr><td>3</td><td>Manager</td><td>One review: approved; guidance to lead with leverage and liquidity; no escalations</td><td class="n">1</td><td class="n">736</td><td class="n">461</td></tr>
+  <tr><td>4</td><td>Writer</td><td>Summary, SWOT, key concerns, sections; number check passed</td><td class="n">1</td><td class="n">2,513</td><td class="n">722</td></tr>
+  <tr class="total"><td></td><td>Total</td><td>Six agents, every check passed first time</td><td class="n">6</td><td class="n">8,472</td><td class="n">4,543</td></tr>
+</table>
+<p>The run cost <b>13,015 tokens</b>; opening Southwest again costs 0 because results are cached by their exact brief.
+An earlier Frontier (ULCC) run shows the failure path: the Macro Analyst and the Report Writer each failed the number
+check three times and escalated to the Manager, and the run still delivered every computed result with the problem
+shown on the Agents tab.</p>
+{{img:07_agents|Agents tab: what each analyst did, attempts, escalations to the Manager, and tokens used.|1098}}
+<div class="two">
+{{img:03_swot|SWOT tab: every item tagged with its source (computed data or an analyst whose output passed the checks).|1100}}
+{{img:05_debt_structure|Debt Structure tab: maturity ladder from the 10-K, leases, credit lines, and liquidity sources versus uses.|1100}}
+</div>
+
+<!-- ============================================================ 5 -->
+<h2>5. Tokenomics</h2>
+<p>Every AI call is logged to <code>data/logs/token_usage.jsonl</code> with input, cached-input and output tokens, and
+failed attempts are logged too. The figures below are <b>measured</b> from that log by <code>tools/evidence.py</code>.</p>
+<h3>Measured tokens</h3>
+<table>
+  <tr><th>Action</th><th class="n">Input</th><th class="n">Output</th><th class="n">Total</th><th>Basis</th></tr>
+  <tr><td>Full AI team run, new company</td><td class="n">7,217</td><td class="n">4,262</td><td class="n">11,479</td><td>median of 12 runs (range 7,684–13,117)</td></tr>
+  <tr><td>Same company again</td><td class="n">0</td><td class="n">0</td><td class="n">0</td><td>result cache</td></tr>
+  <tr><td>Comparison write-up (2–3 companies)</td><td class="n">1,247</td><td class="n">947</td><td class="n">2,194</td><td>median of 2</td></tr>
+  <tr><td>Analyst chat question (optimized)</td><td class="n">689–2,002</td><td class="n">185–374</td><td class="n">874–2,376</td><td>after routing; the higher one includes a retry</td></tr>
+  <tr><td>Starter chat questions, exports, watchlist, edits, options, analyst case</td><td class="n">0</td><td class="n">0</td><td class="n">0</td><td>code only</td></tr>
+</table>
+<p>Per agent (median input / output): Accounting 1,582 / 1,174; Credit 852 / 491; Macro 524 / 487; Micro 1,136 / 786;
+Manager 594 / 374; Writer 2,359 / 830. Cached input was 0 on most runs: each brief is unique, so the provider's prompt
+cache rarely applies. The app's own result cache is what removes repeat cost.</p>
+
+<h3>Cost per run, per user, at scale</h3>
+<p>The course does not publish a price for <code>gpt-6-luna</code>, so costs use a clearly labeled <b>reference price</b>:
+OpenAI's GPT-5 list price ($1.25 per million input tokens, $0.125 cached, $10 output). Costs scale linearly with the
+real price. Usage assumption per analyst per month: 20 new companies, 4 comparisons and 40 chat questions, 10 of
+which are starter questions answered by code.</p>
+<table>
+  <tr><th>Unit</th><th class="n">Tokens</th><th class="n">Cost</th></tr>
+  <tr><td>One full company analysis</td><td class="n">11,479</td><td class="n">$0.052</td></tr>
+  <tr><td>One comparison</td><td class="n">2,194</td><td class="n">$0.011</td></tr>
+  <tr><td>Per analyst per month</td><td class="n">287,106</td><td class="n">$1.21</td></tr>
+  <tr><td>100 users per month</td><td class="n">28.7 million</td><td class="n">$121</td></tr>
+  <tr><td>10,000 users per month</td><td class="n">2.87 billion</td><td class="n">$12,112</td></tr>
+</table>
+<p>At scale the true cost falls further: analysts covering the same companies share cached results.</p>
+
+<h3>Cost cuts and whether they hurt quality</h3>
+<table>
+  <tr><th>Change</th><th>Before → after (measured)</th><th>Effect on quality</th></tr>
+  <tr><td>Code does all math; AI gets compact briefs</td><td>No filing dumps sent to the model</td><td>Ratings are exact and reproducible</td></tr>
+  <tr><td>Long text truncated instead of hard length limits</td><td>Retries removed; −55% tokens on affected tasks</td><td>Same content; checks unchanged</td></tr>
+  <tr><td>Result cache keyed on the exact brief</td><td>Repeat run 11.5k → 0</td><td>Identical output</td></tr>
+  <tr><td>Comparisons reuse cached company work</td><td>3 full runs (~34k) → 1 call (~2.2k)</td><td>All figures still computed by code</td></tr>
+  <tr><td>Chat sends only the sections a question needs</td><td>2,246 → 874 per question</td><td>Correct answers in live tests; number check kept; a gap found in testing (liquidity sources) was added back</td></tr>
+  <tr><td>Starter questions answered by code</td><td>~2,200 → 0</td><td>Exact scorecard figures, no wording risk</td></tr>
+  <tr><td>Reasoning effort low; 40k budget per run; 400k daily ceiling</td><td>Caps runaway cost</td><td>Most tasks pass checks first try</td></tr>
+</table>
+
+<!-- ============================================================ 6 -->
+<h2>6. Safety</h2>
+<table>
+  <tr><th>Risk</th><th>Defense</th><th>Shown working</th></tr>
+  <tr><td>Prompt injection in filings or uploads</td><td>Sentences that read like instructions are removed before any agent sees them; uploaded labels are screened; agents have no tools, so text can't trigger actions</td><td class="pass">test_injection_sentence_removed_before_ai · test_injected_labels_are_neutralized · test_injection_cannot_change_ratings</td></tr>
+  <tr><td>Hallucinated facts</td><td>Quote must appear in the filing; amount must appear in the quote; every number must be in the brief</td><td class="pass">test_quote_and_amount_verification · test_number_check · test_chat_answers_from_context_and_checks_numbers</td></tr>
+  <tr><td>Loops and runaway retries</td><td>3 attempts maximum, then escalation to the Manager; failed-attempt tokens counted</td><td class="pass">test_three_attempts_then_escalate_to_manager</td></tr>
+  <tr><td>Overspending</td><td>40k-token budget per run, 400k daily ceiling, per-visitor rate limits, cache</td><td class="pass">test_token_budget_stops_further_calls · test_daily_token_ceiling · test_rate_limit_blocks_bursts · test_team_run_and_cache</td></tr>
+  <tr><td>Forged browser requests</td><td>Every callback value re-validated on the server against allow-lists and numeric ranges</td><td class="pass">test_forged_choices_are_dropped · test_forged_statement_edits_are_bounded · test_agency_entry_validation · test_case_inputs_are_sanitized</td></tr>
+  <tr><td>Hostile files</td><td>Checked by content, not name; size and page caps; zip-bomb guard; macros and PDF scripts refused</td><td class="pass">test_uploads_checked_by_content_not_name</td></tr>
+  <tr><td>Data leaks</td><td>Keys only in <code>.env</code> (gitignored); no stack traces shown; security headers; local-only by default, optional password</td><td class="pass">test_http_headers_and_password · secret scan before every commit</td></tr>
+  <tr><td>Wrong numbers in the data itself</td><td>Integrity checks: balance sheet must balance, subtotals, signs, implied rates, incomplete debt</td><td>Red flag on the sample private PDF (below)</td></tr>
+</table>
+<p>All 17 safety tests pass (<code>docs/evidence/safety_tests.txt</code>); the full suite is 79 tests.</p>
+{{img:12_private_red_flags|A private company's reviewed statements, uploaded as a PDF: the app finds the balance sheet doesn't balance in one year and raises a red flag instead of "fixing" the numbers.|837}}
+
+<!-- ============================================================ 7 -->
+<h2>7. Impact</h2>
+<div class="box quote">"This app has been created to enhance the efficiency, time management, and
+qualitative/quantitative analysis to provide a rich depth of information at ones finger tips for either a publicly
+traded company or a private company. It saves time, allows for an analyst to quickly compare companies in the same
+sector, and analyze economic and financial information to conduct efficient investment research."<br>
+<span class="meta">— Ryan Scrivano, user, credit and investment-banking background</span></div>
+<table>
+  <tr><th>Measure</th><th>Before</th><th>With CFAA</th><th>Source</th></tr>
+  <tr><td>Time to review a company's financials and build a credit spread</td><td>up to 3 hours</td><td>seconds to a few minutes (live SEC analysis of Delta, code only: 6 s)</td><td>user, measured app run</td></tr>
+  <tr><td>Time saved per company</td><td colspan="2">about 2 h 55 min (≈ 97%), which goes to reviewing the results and understanding the company and its macro and micro economics</td><td>user</td></tr>
+  <tr><td>Time back per analyst per month (20 new companies)</td><td colspan="2">up to about 58 hours</td><td>calculation</td></tr>
+  <tr><td>AI cost per company</td><td colspan="2">≈ $0.05 (reference price), vs. hours of analyst time</td><td>token log</td></tr>
+  <tr><td>Quality</td><td colspan="2">every number from tested code; data errors flagged; every assumption listed; agency ratings shown beside indicative ones for calibration</td><td>tests, calibration</td></tr>
+</table>
+<p>The user applied the app to economic analysis and to individual companies across airlines, technology and
+autos (Southwest, Frontier, Delta, NVIDIA, Palantir, Apple, Rivian), plus a private-company test. The biggest change
+is where the time goes: from collecting and calculating to judging.</p>
+{{img:08_chat_starter_answer|Ask the analyst: the starter question "Why did it get this rating?" is answered by code from the scorecard (0 tokens); other questions go to the AI with a number check.|353}}
+
+<!-- ============================================================ 8 -->
+<h2>8. Limits and next steps</h2>
+<h3>Limits</h3>
+<ul>
+  <li><b>No market data:</b> no bond prices, spreads or CDS, so no relative-value view. It is a credit-quality tool.</li>
+  <li><b>XBRL gaps:</b> companies that report debt in their own tags (Ford) or have captive finance arms (Caterpillar)
+    need a manual check; the app flags these cases rather than hiding them.</li>
+  <li><b>Indicative, not official:</b> the S&amp;P-style rating follows parts of S&amp;P's published method but is not
+    an S&amp;P rating and is not investment advice.</li>
+  <li><b>Validation depth:</b> calibration so far covers a handful of companies, not a multi-year back-test against
+    agency ratings and defaults.</li>
+  <li><b>Scanned PDFs</b> aren't read (no OCR); the watchlist checks for new filings when asked rather than sending
+    alerts.</li>
+  <li><b>Price:</b> costs use a reference price until the course key's <code>gpt-6-luna</code> price is known.</li>
+</ul>
+<h3>Next steps</h3>
+<ul>
+  <li>Add market data (bond spreads, CDS) for a relative-value view beside the credit view.</li>
+  <li>Back-test indicative ratings against historical agency ratings and defaults.</li>
+  <li>Hosted version with user accounts, saved portfolios and alerts on new filings.</li>
+  <li>OCR for scanned statements; covenant-headroom tracking from the debt notes.</li>
+  <li>Wider user testing with credit analysts and lenders, measuring time and accuracy against their current process.</li>
+</ul>
+<p class="meta">Implied ratings, not official S&amp;P ratings. Some of the weighting benchmarks in the analysis are drawn
+from S&amp;P's rating methodology.</p>
+
+</div>
+</body>
+</html>
