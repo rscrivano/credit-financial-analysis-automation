@@ -1,0 +1,13 @@
+# Scoring engine + SEC data
+openpyxl==3.1.5
+# AI agents (slim build per course guidance; routes through Portkey or OpenAI)
+pydantic-ai-slim[openai]==2.66.0
+# Reading PDF financial statements
+pypdf==7.0.0
+# Credit memo PDF export (Word export is written directly, no extra package)
+fpdf2==2.9.0
+# Tests
+pytest>=8
+
+# Web app
+dash==4.5.0

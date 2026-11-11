@@ -1,0 +1,406 @@
+{
+ "_note": "Sector = set of SEC SIC code ranges (inclusive). fred: candidate industry indicators; tools/build_benchmarks.py keeps only series that FRED actually returns. Banks/insurers are excluded: their credit metrics work differently.",
+ "sectors": {
+  "airlines": {
+   "name": "Airlines",
+   "sic": [
+    [
+     4512,
+     4512
+    ],
+    [
+     4522,
+     4522
+    ]
+   ],
+   "fred": {
+    "JFUEL": "DJFUELUSGULF",
+    "RPM": "AIRRPMTSI"
+   }
+  },
+  "transport_logistics": {
+   "name": "Transportation & Logistics",
+   "sic": [
+    [
+     4011,
+     4231
+    ],
+    [
+     4400,
+     4499
+    ],
+    [
+     4513,
+     4513
+    ],
+    [
+     4700,
+     4799
+    ]
+   ],
+   "fred": {
+    "FREIGHT": "TSIFRGHT",
+    "DIESEL": "GASDESW"
+   }
+  },
+  "retail": {
+   "name": "Retail",
+   "sic": [
+    [
+     5200,
+     5799
+    ],
+    [
+     5900,
+     5999
+    ]
+   ],
+   "fred": {
+    "RETAIL": "RSXFS",
+    "SENTIMENT": "UMCSENT"
+   }
+  },
+  "restaurants": {
+   "name": "Restaurants",
+   "sic": [
+    [
+     5810,
+     5813
+    ]
+   ],
+   "fred": {
+    "FOODSERV": "RSFSDP",
+    "FOODCPI": "CPIUFDSL"
+   }
+  },
+  "wholesale": {
+   "name": "Wholesale Distribution",
+   "sic": [
+    [
+     5000,
+     5199
+    ]
+   ],
+   "fred": {
+    "WHOLESALE": "WHLSLRSMSA",
+    "PPI": "PPIACO"
+   }
+  },
+  "food_bev": {
+   "name": "Food & Beverage Manufacturing",
+   "sic": [
+    [
+     2000,
+     2111
+    ]
+   ],
+   "fred": {
+    "IP_FOOD": "IPG311A2S",
+    "FOODCPI": "CPIUFDSL"
+   }
+  },
+  "chemicals": {
+   "name": "Chemicals",
+   "sic": [
+    [
+     2800,
+     2829
+    ],
+    [
+     2840,
+     2899
+    ]
+   ],
+   "fred": {
+    "IP_CHEM": "IPG325S",
+    "NATGAS": "DHHNGSP"
+   }
+  },
+  "pharma_biotech": {
+   "name": "Pharma & Biotech",
+   "sic": [
+    [
+     2833,
+     2836
+    ]
+   ],
+   "fred": {
+    "PPI_PHARMA": "PCU325412325412",
+    "MEDCPI": "CPIMEDSL"
+   }
+  },
+  "industrial_mfg": {
+   "name": "Industrial Manufacturing",
+   "sic": [
+    [
+     3400,
+     3599
+    ],
+    [
+     3800,
+     3829
+    ]
+   ],
+   "fred": {
+    "IP_MFG": "IPMAN",
+    "CAPUTIL": "MCUMFN"
+   }
+  },
+  "tech_hardware": {
+   "name": "Technology Hardware & Semiconductors",
+   "sic": [
+    [
+     3570,
+     3579
+    ],
+    [
+     3660,
+     3699
+    ]
+   ],
+   "fred": {
+    "IP_COMP": "IPG334S",
+    "IP_MFG": "IPMAN"
+   }
+  },
+  "autos": {
+   "name": "Autos & Auto Parts",
+   "sic": [
+    [
+     3711,
+     3716
+    ]
+   ],
+   "fred": {
+    "VEHICLES": "TOTALSA",
+    "IP_AUTO": "IPG3361T3S"
+   }
+  },
+  "metals_mining": {
+   "name": "Metals & Mining",
+   "sic": [
+    [
+     1000,
+     1299
+    ],
+    [
+     1400,
+     1499
+    ],
+    [
+     3300,
+     3399
+    ]
+   ],
+   "fred": {
+    "IP_METAL": "IPG331S",
+    "COPPER": "PCOPPUSDM"
+   }
+  },
+  "oil_gas": {
+   "name": "Oil & Gas",
+   "sic": [
+    [
+     1300,
+     1389
+    ],
+    [
+     2900,
+     2999
+    ]
+   ],
+   "fred": {
+    "WTI": "DCOILWTICO",
+    "NATGAS": "DHHNGSP"
+   }
+  },
+  "utilities": {
+   "name": "Utilities",
+   "sic": [
+    [
+     4900,
+     4991
+    ]
+   ],
+   "fred": {
+    "IP_UTIL": "IPUTIL",
+    "NATGAS": "DHHNGSP"
+   }
+  },
+  "telecom_media": {
+   "name": "Telecom & Media",
+   "sic": [
+    [
+     4800,
+     4899
+    ],
+    [
+     2700,
+     2799
+    ]
+   ],
+   "fred": {
+    "IP_MFG": "INDPRO",
+    "SENTIMENT": "UMCSENT"
+   }
+  },
+  "software_it": {
+   "name": "Software & IT Services",
+   "sic": [
+    [
+     7370,
+     7379
+    ]
+   ],
+   "fred": {
+    "PPI_SOFT": "PCU5112105112105",
+    "IT_INVEST": "Y033RC1Q027SBEA"
+   }
+  },
+  "business_services": {
+   "name": "Business & Professional Services",
+   "sic": [
+    [
+     7300,
+     7369
+    ],
+    [
+     7380,
+     7389
+    ],
+    [
+     8700,
+     8748
+    ]
+   ],
+   "fred": {
+    "PROF_EMP": "CES6054000001",
+    "UNRATE": "UNRATE"
+   }
+  },
+  "healthcare_services": {
+   "name": "Healthcare Services",
+   "sic": [
+    [
+     8000,
+     8099
+    ]
+   ],
+   "fred": {
+    "MEDCPI": "CPIMEDSL",
+    "HC_EMP": "CES6562000001"
+   }
+  },
+  "hotels_leisure": {
+   "name": "Hotels, Leisure & Entertainment",
+   "sic": [
+    [
+     7000,
+     7099
+    ],
+    [
+     7800,
+     7999
+    ]
+   ],
+   "fred": {
+    "PPI_HOTEL": "PCU721110721110",
+    "SENTIMENT": "UMCSENT"
+   }
+  },
+  "construction_bm": {
+   "name": "Construction & Building Materials",
+   "sic": [
+    [
+     1500,
+     1799
+    ],
+    [
+     3200,
+     3299
+    ],
+    [
+     2400,
+     2499
+    ]
+   ],
+   "fred": {
+    "CONSTR": "TTLCONS",
+    "STARTS": "HOUST"
+   }
+  },
+  "real_estate": {
+   "name": "Real Estate & REITs",
+   "sic": [
+    [
+     6500,
+     6599
+    ],
+    [
+     6798,
+     6798
+    ]
+   ],
+   "fred": {
+    "STARTS": "HOUST",
+    "MORTGAGE": "MORTGAGE30US"
+   }
+  },
+  "consumer_products": {
+   "name": "Consumer Products & Apparel",
+   "sic": [
+    [
+     2200,
+     2399
+    ],
+    [
+     2840,
+     2844
+    ],
+    [
+     3100,
+     3199
+    ],
+    [
+     3940,
+     3949
+    ]
+   ],
+   "fred": {
+    "PCE": "PCE",
+    "SENTIMENT": "UMCSENT"
+   }
+  }
+ },
+ "macro": {
+  "FEDFUNDS": {
+   "id": "DFF",
+   "label": "Fed funds rate (%)"
+  },
+  "UST10": {
+   "id": "DGS10",
+   "label": "10-year Treasury yield (%)"
+  },
+  "BBB_OAS": {
+   "id": "BAMLC0A4CBBB",
+   "label": "BBB corporate spread (%)"
+  },
+  "HY_OAS": {
+   "id": "BAMLH0A0HYM2",
+   "label": "High-yield spread (%)"
+  },
+  "GDP": {
+   "id": "A191RL1Q225SBEA",
+   "label": "Real GDP growth, annualized (%)"
+  },
+  "CPI": {
+   "id": "CPIAUCSL",
+   "label": "CPI index (YoY computed)",
+   "yoy": true
+  },
+  "UNRATE": {
+   "id": "UNRATE",
+   "label": "Unemployment rate (%)"
+  }
+ }
+}

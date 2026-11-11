@@ -1,0 +1,228 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CFAA User Guide</title>
+<style>
+  :root { --bg:#000; --panel:#0b0b0b; --line:#262626; --amber:#ffa028; --text:#e8e8e8; --muted:#9a9a9a; --good:#4caf50; --bad:#ff5252; --cyan:#4fc3f7; }
+  * { box-sizing: border-box; }
+  body { margin:0; background:var(--bg); color:var(--text); font:15px/1.6 Consolas, "IBM Plex Mono", "Courier New", monospace; }
+  .wrap { max-width: 980px; margin: 0 auto; padding: 0 16px 60px; }
+  header { background: var(--amber); color:#000; padding: 10px 16px; font-weight:700; letter-spacing:.06em; }
+  header .brand { background:#000; color:var(--amber); padding:2px 8px; margin-right:10px; }
+  h1 { color:var(--amber); font-size: 26px; line-height:1.3; margin: 28px 0 6px; }
+  h2 { color:var(--amber); font-size: 17px; letter-spacing:.08em; text-transform:uppercase; border-bottom:1px solid var(--amber); padding-bottom:4px; margin: 36px 0 12px; }
+  h3 { color:#fff; font-size: 15px; margin: 20px 0 6px; }
+  p, li { color: var(--text); } .muted { color: var(--muted); }
+  code, .k { background:#151515; border:1px solid var(--line); color:var(--amber); padding:0 5px; }
+  .box { background:var(--panel); border:1px solid var(--line); border-left:3px solid var(--amber); padding:12px 16px; margin:12px 0; }
+  .box.warn { border-left-color: var(--bad); }
+  .steps { display:grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap:10px; margin:12px 0; }
+  .step { background:var(--panel); border:1px solid var(--line); border-top:2px solid var(--amber); padding:12px; }
+  .step b.n { display:inline-block; background:var(--amber); color:#000; width:24px; text-align:center; margin-right:6px; }
+  table { width:100%; border-collapse:collapse; margin:10px 0; font-size:13.5px; }
+  th { text-align:left; color:var(--amber); border-bottom:1px solid var(--amber); padding:6px 8px; text-transform:uppercase; font-size:12px; }
+  td { border-bottom:1px solid var(--line); padding:6px 8px; vertical-align:top; }
+  nav ol { columns: 2; padding-left: 20px; } nav a { color: var(--cyan); }
+  a { color: var(--cyan); }
+  .tag { display:inline-block; font-size:11px; padding:0 6px; border:1px solid currentColor; margin-right:4px; }
+  .good { color: var(--good); } .bad { color: var(--bad); }
+  @media (max-width: 640px) { nav ol { columns: 1; } h1 { font-size: 21px; } table { font-size: 12.5px; } }
+  @media print { body { background:#fff; color:#000; font-size: 11.5pt; } p, li, td { color:#000; } header { background:#fff; border-bottom:2px solid #c55a11; }
+    h1, h2, th { color:#c55a11; } .box, .step { background:#fff; } code, .k { background:#f4f4f4; color:#000; } }
+</style>
+</head>
+<body>
+<header><span class="brand">CFAA</span>CREDIT/FINANCIAL ANALYSIS AUTOMATION · USER GUIDE</header>
+<div class="wrap">
+
+<h1>User guide: from a ticker or a set of statements to a full credit analysis</h1>
+<p class="muted">For credit analysts, lenders, investment professionals and students. No coding needed once the app is running.</p>
+
+<div class="box">
+  <b>What the app does, in one paragraph.</b> You give it a public company's ticker or a private company's financial
+  statements. It builds the financial spread, rates the company on a credit scorecard (Reported and Lease-adjusted bases),
+  adds an indicative S&amp;P-style rating, benchmarks the company against its sector and named public competitors, runs
+  stress tests, checks the data for errors, and lists every judgment call it had to make. An optional team of AI analysts
+  then writes the narrative: credit view, SWOT, economic and sector analysis, and accounting findings. Code calculates
+  every number; the AI only reads and writes, and every number it cites is checked against the data.
+</div>
+
+<nav><h2>Contents</h2><ol>
+  <li><a href="#start">Starting the app</a></li>
+  <li><a href="#quick">Quick start: four workflows</a></li>
+  <li><a href="#screen">The screen at a glance</a></li>
+  <li><a href="#tabs">The 11 tabs</a></li>
+  <li><a href="#read">How to read the results</a></li>
+  <li><a href="#private">Private companies in detail</a></li>
+  <li><a href="#compare">Comparing companies</a></li>
+  <li><a href="#adjust">Adjusting the analysis</a></li>
+  <li><a href="#ask">Ask the analyst (chat)</a></li>
+  <li><a href="#export">Exports and the watchlist</a></li>
+  <li><a href="#cost">AI, cost and speed</a></li>
+  <li><a href="#limits">Limits and troubleshooting</a></li>
+</ol></nav>
+
+<h2 id="start">1. Starting the app</h2>
+<p>Follow the README in the project folder (about 5 minutes the first time):</p>
+<pre class="box">python -m venv .venv
+.venv\Scripts\activate          (macOS/Linux: source .venv/bin/activate)
+pip install -r requirements.txt
+python app.py</pre>
+<p>Open <code>http://127.0.0.1:8050</code>. For the AI-written sections, put <code>PORTKEY_API_KEY</code> (or
+<code>OPENAI_API_KEY</code>) in a <code>.env</code> file in the project folder or one folder above it. Without a key,
+everything except the AI-written text and the chat still works.</p>
+
+<h2 id="quick">2. Quick start: four workflows</h2>
+<div class="steps">
+  <div class="step"><b class="n">1</b><b>One public company</b><br>Keep <span class="k">Public company</span> and
+    <span class="k">Single ticker</span>. Type <code>LUV</code>, press <span class="k">GO</span>. Results appear in
+    10–30 seconds (about a minute the first time a company runs with AI).</div>
+  <div class="step"><b class="n">2</b><b>Compare competitors</b><br>Click <span class="k">Compare companies</span>, type
+    <code>LUV</code> and <code>ULCC</code>, add more with <span class="k">+ Add company</span> (up to 10), press
+    <span class="k">COMPARE</span>.</div>
+  <div class="step"><b class="n">3</b><b>A private company</b><br>Click <span class="k">Private company</span>, upload the
+    statements (Excel or PDF), check the lines the app read, pick the sector, press
+    <span class="k">Confirm &amp; analyze</span>.</div>
+  <div class="step"><b class="n">4</b><b>Review and share</b><br>Read tab 1, go deeper in tabs 2–11, ask questions in
+    <span class="k">Ask the analyst</span>, then <span class="k">EXPORT</span> to Excel or a Word/PDF memo.</div>
+</div>
+<div class="box"><b>Tip:</b> untick <span class="k">AI analyst team</span> to explore for free. Ratings, data, checks,
+stress tests and exports all still work; only the written analysis is skipped.</div>
+
+<h2 id="screen">3. The screen at a glance</h2>
+<table>
+  <tr><th>Area</th><th>What it does</th></tr>
+  <tr><td>? HOW TO USE THIS APP</td><td>Opens a seven-step reminder of this guide inside the app.</td></tr>
+  <tr><td>Public / Private toggle</td><td>Public pulls SEC filings by ticker; Private reads statements you upload.</td></tr>
+  <tr><td>Single ticker / Compare</td><td>One company in depth, or several side by side.</td></tr>
+  <tr><td>Sector</td><td>Detected automatically for public companies; choose it for private ones. Changing it re-runs the sector comparison.</td></tr>
+  <tr><td>AI analyst team</td><td>On: the AI analysts write the narrative. Off: code-only results, no AI cost.</td></tr>
+  <tr><td>All periods / Annual / Quarterly</td><td>Filters the period charts and tables.</td></tr>
+  <tr><td>Rating strip</td><td>Credit score, Reported rating, Lease-adjusted rating, S&amp;P-style rating, agency ratings, period and sector.</td></tr>
+  <tr><td>EXPORT bar</td><td>Excel, Memo (Word), Memo (PDF), + Watchlist.</td></tr>
+  <tr><td>Ask the analyst</td><td>Chat about the analysis on screen (bottom of the page).</td></tr>
+  <tr><td>Watchlist</td><td>Saved companies and a <span class="k">Check for new filings</span> button (bottom of the page).</td></tr>
+</table>
+
+<h2 id="tabs">4. The 11 tabs</h2>
+<p>Every tab opens with a one-line description of what it shows.</p>
+<table>
+  <tr><th>Tab</th><th>What you'll find</th><th>What you can do there</th></tr>
+  <tr><td>1 SUMMARY</td><td>Credit score, ratings, key ratios, the AI summary and key concerns.</td><td>Start here.</td></tr>
+  <tr><td>2 SWOT</td><td>Strengths, weaknesses, opportunities, threats; each item tagged with its source.</td><td>See where each point came from.</td></tr>
+  <tr><td>3 CREDIT</td><td>Scorecard ratios and notches, S&amp;P-style anchor and modifiers, stress tests, ratings by period, agency ratings.</td><td>Enter agency ratings; build your <b>Analyst case</b>.</td></tr>
+  <tr><td>4 DEBT STRUCTURE</td><td>Maturities by year, leases, credit lines, liquidity sources vs. uses, debt instruments from the filing.</td><td>Check refinancing risk.</td></tr>
+  <tr><td>5 FINANCIALS</td><td>Summary and detailed P&amp;L, Balance Sheet and Cash Flows.</td><td>Edit any number, <span class="k">Recalculate with my edits</span>, <span class="k">Undo all edits</span>.</td></tr>
+  <tr><td>6 MACRO</td><td>GDP, inflation, rates, credit spreads and industry indicators (FRED), with the Macro Analyst's view.</td><td>See the economic backdrop.</td></tr>
+  <tr><td>7 SECTOR/COMPS</td><td>Company vs. the median of named public competitors; tiers vs. the whole sector.</td><td>Answer the optional company questionnaire.</td></tr>
+  <tr><td>8 ACCOUNTING/GAAP</td><td>GAAP findings with quotes, data red flags, off-balance-sheet items.</td><td>Review the items; include them in the rating from tab 10.</td></tr>
+  <tr><td>9 DETAIL</td><td>Every ratio for every period with its inputs.</td><td>Audit the math.</td></tr>
+  <tr><td>10 ASSUMPTIONS</td><td>Every judgment call, its impact and the options. The number in brackets counts open decisions.</td><td>Pick an option; ratings update instantly at no AI cost.</td></tr>
+  <tr><td>11 AGENTS</td><td>What each AI analyst did, attempts, escalations, tokens used.</td><td>Re-run the analysts after changes.</td></tr>
+</table>
+
+<h2 id="read">5. How to read the results</h2>
+<h3>Credit score (0–100)</h3>
+<p>Higher is stronger. It comes from the Reported-basis scorecard. The coverage label tells you how much of the
+scorecard had data: <b>Full opinion</b> (90%+), <b>Substantial</b> (67–90%), <b>Limited (provisional)</b> (below 67%).
+A rating is always given; with limited data, treat it as provisional.</p>
+<h3>The three ratings</h3>
+<table>
+  <tr><th>Rating</th><th>Meaning</th></tr>
+  <tr><td>Reported</td><td>The scorecard on the numbers as reported. Always shown first.</td></tr>
+  <tr><td>Lease-adjusted</td><td>Same scorecard with lease liabilities added to debt and part of lease cost treated as interest.</td></tr>
+  <tr><td>S&amp;P-style (indicative)</td><td>Business risk × financial risk anchor, then modifiers (liquidity cap, sponsor ownership). Some weighting benchmarks follow S&amp;P's published method. <b>Not an official S&amp;P rating.</b></td></tr>
+</table>
+<p>Agency ratings (S&amp;P, Moody's, Fitch) appear only when the company discloses them in its filings; you can also
+enter them yourself in tab 3.</p>
+<h3>Ratio messages</h3>
+<p><b>Ratio is Infinite</b>: the denominator is zero (e.g., no debt). <b>Data is Missing</b>: an input isn't in the data.</p>
+<h3>Red flags</h3>
+<p><span class="tag bad">RED</span> means the numbers don't hold together: the balance sheet doesn't balance, subtotals
+don't add up, debt looks incomplete, or an implied interest rate is implausible. The app never "fixes" the numbers:
+the finances are the finances. It flags them so you can check the source or correct a figure in tab 5.</p>
+
+<h2 id="private">6. Private companies in detail</h2>
+<ol>
+  <li><b>Upload</b> an Excel workbook or a text PDF (not a scanned image), up to 10 MB and 80 pages. Include the notes:
+    the app reads lease, debt, covenant, related-party and going-concern notes and the accountant's report.</li>
+  <li><b>Check what the app read.</b> It shows each statement line, the field it matched, the periods, the units it
+    detected (thousands or millions) and the statement quality (audited, reviewed, compiled, management). Fix any line
+    with the dropdown. <span class="k">Ask the Accounting Analyst to map …</span> maps lines it
+    couldn't match.</li>
+  <li><b>Pick the sector</b> and press <span class="k">Confirm &amp; analyze</span>.</li>
+  <li>Tab 7 compares the company with <b>named public competitors</b> from SEC filings and shows which ones are used.</li>
+</ol>
+<p>Try it with <code>data/samples/sample_private_reviewed_statements.pdf</code>. It contains a deliberate balance-sheet
+error so you can see the red flag.</p>
+
+<h2 id="compare">7. Comparing companies</h2>
+<p>Comparison mode shows a side-by-side table with the best value in each row highlighted, a credit-score chart, a
+ranking with reasons, and financial, SWOT and economic write-ups. Use the <span class="k">VIEW</span> toggle
+(COMPARISON | LUV | ULCC …) to open any one company in full. To save tokens, comparisons reuse saved AI work and make
+one AI call for the write-up. If a company hasn't had its AI analysis yet, open it and press
+<span class="k">Run AI analyst team</span>.</p>
+
+<h2 id="adjust">8. Adjusting the analysis</h2>
+<table>
+  <tr><th>Want to…</th><th>Do this</th><th>AI cost</th></tr>
+  <tr><td>Correct a number</td><td>Tab 5, edit the cell, <span class="k">Recalculate with my edits</span>. Edits are listed in tab 10; <span class="k">Undo all edits</span> reverts.</td><td>None</td></tr>
+  <tr><td>Answer an open decision</td><td>Tab 10, pick an option (e.g., business risk, lease treatment, cash netting, off-balance-sheet items).</td><td>None</td></tr>
+  <tr><td>Test your own view</td><td>Tab 3, <b>Analyst case</b>: EBITDA add-backs, debt adjustments, revenue growth, EBITDA margin. Shown beside Reported, which never changes.</td><td>None</td></tr>
+  <tr><td>Change the sector</td><td>Sector dropdown at the top.</td><td>None</td></tr>
+  <tr><td>Refresh the written analysis</td><td>Press <span class="k">Re-run analysts</span> in the banner that appears after changes.</td><td>One team run</td></tr>
+</table>
+
+<h2 id="ask">9. Ask the analyst (chat)</h2>
+<p>Ask anything about the analysis on screen, for example: <i>"Why is the lease-adjusted rating lower?"</i>,
+<i>"How much debt matures in the next two years?"</i>, <i>"What drives the weak EBITDA margin?"</i>. Answers use
+only this analysis's data and point to the tab with the detail. If the data doesn't contain the answer, the chat says
+so rather than guessing.</p>
+<ul>
+  <li>Starter buttons such as <i>"Why did it get this rating?"</i>, <i>"What would move the rating up or down?"</i> and
+    <i>"How does it compare with its peers?"</i> are answered by code at <b>no AI cost</b>.</li>
+  <li>Other questions cost about 900–1,000 tokens. Asking the same question again is free.</li>
+  <li>Switching company starts a new conversation. Limit: 30 questions per hour.</li>
+</ul>
+
+<h2 id="export">10. Exports and the watchlist</h2>
+<ul>
+  <li><b>Excel</b>: summary, scorecard, statements, periods, peers, debt structure, stress tests, red flags,
+    assumptions and your analyst case, one sheet each. In comparison view it exports the comparison.</li>
+  <li><b>Memo (Word / PDF)</b>: a nine-section credit memo ready for an investment-committee pack.</li>
+  <li><b>+ Watchlist</b>: saves a public company in this browser. <span class="k">Check for new filings</span> looks for a
+    newer 10-K or 10-Q and re-scores only companies that have one, showing any rating change. It runs when you press
+    the button; it does not send alerts while the app is closed.</li>
+</ul>
+
+<h2 id="cost">11. AI, cost and speed</h2>
+<table>
+  <tr><th>Action</th><th>Typical tokens (measured)</th></tr>
+  <tr><td>Analysis with AI off, exports, watchlist, edits, options, analyst case</td><td>0</td></tr>
+  <tr><td>First full AI team run for a company</td><td>about 13,000 (e.g., Southwest: 13,015)</td></tr>
+  <tr><td>Same company again, unchanged</td><td>0 (served from cache)</td></tr>
+  <tr><td>Comparison write-up (2–3 companies)</td><td>about 1,900–2,500</td></tr>
+  <tr><td>Chat question</td><td>0 for starter questions; about 900–1,000 otherwise</td></tr>
+</table>
+<p class="muted">Safety limits: each AI task gets at most 3 attempts and then escalates to the Manager; each run has a
+40,000-token budget; the app has a daily ceiling of 400,000 tokens.</p>
+
+<h2 id="limits">12. Limits and troubleshooting</h2>
+<table>
+  <tr><th>Situation</th><th>What to do</th></tr>
+  <tr><td>"Ticker not found"</td><td>Use the US exchange ticker (e.g., <code>BRK-B</code>). Only SEC filers are covered.</td></tr>
+  <tr><td>Coverage shows "Limited"</td><td>Some inputs aren't in the company's XBRL tags; check tab 10 for hints and fill blanks in tab 5.</td></tr>
+  <tr><td>"Debt looks incomplete" red flag</td><td>The company reports debt in its own tags; enter total debt in tab 5.</td></tr>
+  <tr><td>Scanned PDF can't be read</td><td>Upload a text PDF or the Excel version.</td></tr>
+  <tr><td>AI sections say "not run"</td><td>Tick AI analyst team and press GO again, or check that a key is in <code>.env</code>.</td></tr>
+  <tr><td>"Too many requests"</td><td>Rate limits protect cost; wait the minutes shown.</td></tr>
+</table>
+<div class="box warn"><b>Use as analysis support.</b> Implied ratings are not official S&amp;P ratings, and the app is not
+investment advice. Some of the weighting benchmarks in the analysis are drawn from S&amp;P's rating methodology. Always
+review the red flags and open assumptions before relying on a result.</div>
+
+</div>
+</body>
+</html>
