@@ -81,7 +81,8 @@ def main():
     real = a.price_in is not None and a.price_out is not None
     p = {"in": a.price_in or 1.25, "cached": a.price_cached if a.price_cached is not None else (a.price_in or 1.25) / 10,
          "out": a.price_out or 10.0}
-    label = "course key prices" if real else "PLACEHOLDER prices (replace with the course key's real prices)"
+    label = "course key prices" if real else ("reference price: OpenAI GPT-5 list price used as a stand-in, because the course "
+                                              "key's gpt-6-luna price is not published; costs scale linearly with it")
     rows = load()
     runs = full_runs(rows)
 
@@ -110,15 +111,29 @@ def main():
         if xs:
             mi, mo = statistics.median(x["input_tokens"] for x in xs), statistics.median(x["output_tokens"] for x in xs)
             L.append(f"| {name} | {len(xs)} | {mi:,.0f} | {mo:,.0f} | ${cost(mi, 0, mo, p):.4f} |")
-    chat_cost = cost(900, 0, 150, p)  # routed chat question (measured 789–874 total after the cut)
-    cmp_cost = cost(1250, 0, 950, p)
-    # Usage assumption for scaling: an analyst covers 20 new companies, 4 comparisons and 40 chat questions a month.
-    month = 20 * run_cost + 4 * cmp_cost + 40 * chat_cost
-    L += ["", "## Scaling (assumption: per analyst per month = 20 new company runs, 4 comparisons, 40 chat questions;",
-          "starter questions, exports, watchlist and re-opened companies cost 0)", "",
-          "| Users | Cost per month | Cost per year |", "|---:|---:|---:|",
-          f"| 1 | ${month:,.2f} | ${month * 12:,.2f} |", f"| 100 | ${month * 100:,.2f} | ${month * 1200:,.2f} |",
-          f"| 10,000 | ${month * 10_000:,.2f} | ${month * 120_000:,.2f} |", "",
+    # Optimized figures only: chat questions after topic routing (2026-11-10 17:40 onward), every attempt included.
+    routed = [x for x in chat if x["ts"] >= "2026-11-10T17:40"]
+    chat_in = statistics.mean(x["input_tokens"] for x in routed) if routed else 900
+    chat_out = statistics.mean(x["output_tokens"] for x in routed) if routed else 150
+    cmp_in = statistics.median(x["input_tokens"] for x in cmp_) if cmp_ else 1250
+    cmp_out = statistics.median(x["output_tokens"] for x in cmp_) if cmp_ else 950
+    # Usage assumption: per analyst per month, 20 new companies, 4 comparisons, 40 chat questions of which 10 are starter
+    # questions (answered by code, 0 tokens). Re-opened companies, exports, watchlist, edits and options cost 0.
+    per = {"Company runs (20)": (20 * med["in"], 20 * med["out"]), "Comparisons (4)": (4 * cmp_in, 4 * cmp_out),
+           "Chat questions (30 AI + 10 starter)": (30 * chat_in, 30 * chat_out)}
+    tin, tout = sum(v[0] for v in per.values()), sum(v[1] for v in per.values())
+    month = cost(tin, 0, tout, p)
+    L += ["", f"Optimized chat (after topic routing, {len(routed)} questions, retries included): mean {chat_in:,.0f} input + "
+              f"{chat_out:,.0f} output per question; starter questions 0.", "",
+          "## Tokens per analyst per month (measured medians × usage assumption)", "",
+          "| Item | Input tokens | Output tokens |", "|---|---:|---:|"]
+    L += [f"| {k} | {v[0]:,.0f} | {v[1]:,.0f} |" for k, v in per.items()]
+    L += [f"| **Total** | **{tin:,.0f}** | **{tout:,.0f}** |", "",
+          "## Scaling", "", "| Users | Tokens per month | Cost per month | Cost per year |", "|---:|---:|---:|---:|"]
+    for u in (1, 100, 10_000):
+        L.append(f"| {u:,} | {(tin + tout) * u:,.0f} | ${month * u:,.2f} | ${month * u * 12:,.2f} |")
+    L += ["", f"Cost per full company run: ${run_cost:.4f}; per comparison: ${cost(cmp_in, 0, cmp_out, p):.4f}; "
+              f"per AI chat question: ${cost(chat_in, 0, chat_out, p):.4f}.", "",
           "At scale the cache saves more: analysts covering the same companies share cached results, so the real cost per",
           "user falls as users grow.", "",
           "## Cost cuts and their effect on quality (measured)", "",
