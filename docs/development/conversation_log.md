@@ -640,3 +640,7 @@ Fresh clone of commit 1c2e237 from the public GitHub repo into `C:\cfaa_submit_c
 - slides.html: 10 slides, reveal.js from the CDN, 4 embedded images.
 - Repo rules met: `.env.example` has names only, `.env` is gitignored, `.env` is looked up in the repo then one folder up, the model defaults to gpt-6-luna and is configurable, and sample data is included.
 - **Ready to submit on Canvas:** repo link, report.html, slides.html.
+
+## 2026-11-11: Submission instructions from the professor
+- Submit only report.html and slides.html (plus an optional video), each containing the GitHub repo URL so graders can clone it. No other files.
+- Added the full repo URL and `git clone https://github.com/rscrivano/credit-financial-analysis-automation.git` in a box at the top of the report and on the title slide; the URL also appears on the last slide. Report 15 pages, 10 slides. Pushed.
