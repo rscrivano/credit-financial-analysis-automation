@@ -55,9 +55,19 @@
 
 <!-- ============================================================ 1 -->
 <h1>Credit/Financial Analysis Automation</h1>
-<p class="lede">An AI analyst team that turns a public company's SEC filings, or a private company's financial
-statements, into a full credit, industry and economic analysis in minutes. Code calculates every number; the AI
-writes the analysis, and every figure it cites is checked against the data.</p>
+<p class="lede">Understand a company in depth in minutes instead of hours.</p>
+<div class="box"><p style="margin:0 0 8px">Credit/Financial Analysis Automation gives credit and investment analysts a
+complete picture of a company in one place:</p>
+<ul style="margin:0 0 8px">
+  <li><b>Financial position:</b> the income statement, balance sheet and cash flows, spread and checked for errors;</li>
+  <li><b>Credit risk:</b> a credit score and ratings, the ratios behind them, and stress tests;</li>
+  <li><b>Debt and credit structure:</b> what the company owes, to whom, and when it comes due, plus its liquidity;</li>
+  <li><b>Economic context:</b> the economy (macro) and the company's industry and competitors (micro).</li>
+</ul>
+<p style="margin:0">What used to take an analyst up to three hours of gathering and calculating is ready in minutes, so
+the analyst's time goes to judgment. Analysts get clear, complete information for institutional lending, debt
+investment and credit decisions, including for <b>private companies that have no public credit rating</b>. Code
+calculates every number; AI writes the analysis, and every figure it cites is checked against the data.</p></div>
 <p class="meta"><b>Author:</b> Ryan Scrivano · Yale MGMT 409 · November 2026<br>
 <b>Repository:</b> <a href="https://github.com/rscrivano/credit-financial-analysis-automation">github.com/rscrivano/credit-financial-analysis-automation</a> (private; <code>zlisto</code> invited)<br>
 <b>Run it:</b> local Dash app. Fresh clone + <code>pip install -r requirements.txt</code> + <code>python app.py</code>, with
@@ -264,29 +274,6 @@ autos (Southwest, Frontier, Delta, NVIDIA, Palantir, Apple, Rivian), plus a priv
 is where the time goes: from collecting and calculating to judging.</p>
 {{img:08_chat_starter_answer|Ask the analyst: the starter question "Why did it get this rating?" is answered by code from the scorecard (0 tokens); other questions go to the AI with a number check.|0-427}}
 
-<!-- ============================================================ 8 -->
-<h2>8. Limits and next steps</h2>
-<h3>Limits</h3>
-<ul>
-  <li><b>No market data:</b> no bond prices, spreads or CDS, so no relative-value view. It is a credit-quality tool.</li>
-  <li><b>XBRL gaps:</b> companies that report debt in their own tags (Ford) or have captive finance arms (Caterpillar)
-    need a manual check; the app flags these cases rather than hiding them.</li>
-  <li><b>Indicative, not official:</b> the S&amp;P-style rating follows parts of S&amp;P's published method but is not
-    an S&amp;P rating and is not investment advice.</li>
-  <li><b>Validation depth:</b> calibration so far covers a handful of companies, not a multi-year back-test against
-    agency ratings and defaults.</li>
-  <li><b>Scanned PDFs</b> aren't read (no OCR); the watchlist checks for new filings when asked rather than sending
-    alerts.</li>
-  <li><b>Price:</b> costs use a reference price until the course key's <code>gpt-6-luna</code> price is known.</li>
-</ul>
-<h3>Next steps</h3>
-<ul>
-  <li>Add market data (bond spreads, CDS) for a relative-value view beside the credit view.</li>
-  <li>Back-test indicative ratings against historical agency ratings and defaults.</li>
-  <li>Hosted version with user accounts, saved portfolios and alerts on new filings.</li>
-  <li>OCR for scanned statements; covenant-headroom tracking from the debt notes.</li>
-  <li>Wider user testing with credit analysts and lenders, measuring time and accuracy against their current process.</li>
-</ul>
 <p class="meta">Implied ratings, not official S&amp;P ratings. Some of the weighting benchmarks in the analysis are drawn
 from S&amp;P's rating methodology.</p>
 
