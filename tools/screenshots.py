@@ -26,7 +26,7 @@ ROOT = Path(__file__).resolve().parent.parent
 BROWSERS = [r"C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe",
             r"C:\Program Files\Google\Chrome\Application\chrome.exe"]
 APP = "http://127.0.0.1:8050/"
-W = 1440
+W = int(os.environ.get("SHOT_WIDTH", 1440))  # narrower = larger text when shrunk onto a page
 
 
 class CDP:

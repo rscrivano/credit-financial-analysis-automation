@@ -40,8 +40,9 @@
   .two { display:grid; grid-template-columns: 1fr 1fr; gap: 14px; }
   .pass { color: var(--good); font-weight:700; }
   @media (max-width: 680px) { .kpis { grid-template-columns: 1fr 1fr; } .two { grid-template-columns: 1fr; } h1 { font-size: 23px; } }
+  @page { size: letter; margin: 0.5in; }
   @media print {
-    body { background:#fff; color:#111; font-size: 11pt; } p, li, td { color:#111; } .lede { color:#000; }
+    body { background:#fff; color:#111; font-size: 10.5pt; line-height: 1.5; } h2 { margin: 26px 0 10px; } figure { margin: 12px 0; } table { font-size: 9pt; } p, li, td { color:#111; } .lede { color:#000; }
     header.top { background:#fff; color:#000; border-bottom:2px solid #c55a11; } h1, h2, th, .kpi .v { color:#c55a11; }
     h2 { page-break-after: avoid; } .box, .kpi { background:#fafafa; } code { background:#f3f3f3; color:#000; }
     figure img { border-color:#ccc; } a { color:#0b57d0; }
@@ -71,7 +72,7 @@ writes the analysis, and every figure it cites is checked against the data.</p>
   <div class="kpi"><div class="v">17 / 17</div><div class="k">Safety tests passing</div></div>
 </div>
 
-{{img:01_start_page|The start page tells a first-time user what the product does and gives four ways to start. Every tab also opens with a one-line description.|1226}}
+{{img:01_start_page|The start page tells a first-time user what the product does and gives four ways to start. Every tab also opens with a one-line description.|0-800}}
 
 <!-- ============================================================ 2 -->
 <h2>2. Motivation</h2>
@@ -122,8 +123,8 @@ picture. Three design choices set it apart from a general AI assistant:</p>
 </ul>
 
 <h3>What the analyst sees</h3>
-{{img:02_summary|Summary tab for NVIDIA (NVDA): credit score, Reported and Lease-adjusted ratings, indicative S&P-style rating, agency ratings, and the Report Writer's summary.|910}}
-{{img:10_comparison|Comparison mode: Southwest vs Frontier vs Delta side by side, with the best value in each row highlighted, a credit-score chart, a ranking and a written comparison. A toggle opens any one company in depth.|1500}}
+{{img:02_summary|Summary tab for NVIDIA (NVDA): credit score, Reported and Lease-adjusted ratings, indicative S&P-style rating, agency ratings, and the Report Writer's summary.|0-960}}
+{{img:10_comparison|Comparison mode: Southwest vs Frontier vs Delta side by side, with the best value in each row highlighted, a credit-score chart, a ranking and a written comparison. A toggle opens any one company in depth.|0-900}}
 
 <h3>How well it works</h3>
 <ul>
@@ -179,11 +180,9 @@ interpret facts that code has already computed, so deep reasoning adds hidden to
 An earlier Frontier (ULCC) run shows the failure path: the Macro Analyst and the Report Writer each failed the number
 check three times and escalated to the Manager, and the run still delivered every computed result with the problem
 shown on the Agents tab.</p>
-{{img:07_agents|Agents tab: what each analyst did, attempts, escalations to the Manager, and tokens used.|1098}}
-<div class="two">
-{{img:03_swot|SWOT tab: every item tagged with its source (computed data or an analyst whose output passed the checks).|1100}}
-{{img:05_debt_structure|Debt Structure tab: maturity ladder from the 10-K, leases, credit lines, and liquidity sources versus uses.|1100}}
-</div>
+{{img:07_agents|Agents tab: what each analyst did, attempts, escalations to the Manager, and tokens used.|430-1226}}
+{{img:03_swot|SWOT tab: every item tagged with its source (computed data or an analyst whose output passed the checks).|430-1150}}
+{{img:05_debt_structure|Debt Structure tab: maturity ladder from the 10-K, leases, credit lines, and liquidity sources versus uses.|430-1150}}
 
 <!-- ============================================================ 5 -->
 <h2>5. Tokenomics</h2>
@@ -243,7 +242,7 @@ which are starter questions answered by code.</p>
   <tr><td>Wrong numbers in the data itself</td><td>Integrity checks: balance sheet must balance, subtotals, signs, implied rates, incomplete debt</td><td>Red flag on the sample private PDF (below)</td></tr>
 </table>
 <p>All 17 safety tests pass (<code>docs/evidence/safety_tests.txt</code>); the full suite is 79 tests.</p>
-{{img:12_private_red_flags|A private company's reviewed statements, uploaded as a PDF: the app finds the balance sheet doesn't balance in one year and raises a red flag instead of "fixing" the numbers.|837}}
+{{img:12_private_red_flags|A private company's reviewed statements, uploaded as a PDF: the app finds the balance sheet doesn't balance in one year and raises a red flag instead of "fixing" the numbers.|400-977}}
 
 <!-- ============================================================ 7 -->
 <h2>7. Impact</h2>
@@ -263,7 +262,7 @@ sector, and analyze economic and financial information to conduct efficient inve
 <p>The user applied the app to economic analysis and to individual companies across airlines, technology and
 autos (Southwest, Frontier, Delta, NVIDIA, Palantir, Apple, Rivian), plus a private-company test. The biggest change
 is where the time goes: from collecting and calculating to judging.</p>
-{{img:08_chat_starter_answer|Ask the analyst: the starter question "Why did it get this rating?" is answered by code from the scorecard (0 tokens); other questions go to the AI with a number check.|353}}
+{{img:08_chat_starter_answer|Ask the analyst: the starter question "Why did it get this rating?" is answered by code from the scorecard (0 tokens); other questions go to the AI with a number check.|0-427}}
 
 <!-- ============================================================ 8 -->
 <h2>8. Limits and next steps</h2>

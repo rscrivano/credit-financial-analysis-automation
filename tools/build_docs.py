@@ -18,13 +18,14 @@ from pathlib import Path
 from PIL import Image
 
 ROOT = Path(__file__).resolve().parent.parent
-IMG = re.compile(r"\{\{img:([\w-]+)\|([^|}]*)\|?(\d*)\}\}")
+IMG = re.compile(r"\{\{img:([\w-]+)\|([^|}]*)\|?([\d-]*)\}\}")
 
 
 def embed(shots: Path, name: str, caption: str, max_h: str, width: int) -> str:
     im = Image.open(shots / f"{name}.png").convert("RGB")
     if max_h:
-        im = im.crop((0, 0, im.width, min(im.height, int(max_h))))
+        top, _, bottom = max_h.rpartition("-")
+        im = im.crop((0, int(top or 0), im.width, min(im.height, int(bottom))))
     if im.width > width:
         im = im.resize((width, round(im.height * width / im.width)), Image.LANCZOS)
     buf = io.BytesIO()
@@ -44,10 +45,11 @@ def build(src: Path, dst: Path, shots: Path, svg: str, width: int) -> int:
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--shots", default=str(ROOT.parent / "docs" / "evidence" / "screenshots"))
+    ap.add_argument("--report-shots", default=str(ROOT.parent / "docs" / "evidence" / "screenshots_report"),
+                    help="captured at 1000 px wide so text stays readable on a printed page")
     a = ap.parse_args()
-    shots = Path(a.shots)
     svg = re.search(r"<svg.*?</svg>", (ROOT / "docs" / "agent_design.html").read_text(encoding="utf-8"), re.S).group(0)
-    for name, width in (("report", 1100), ("slides", 1000)):
+    for name, width, shots in (("report", 1000, Path(a.report_shots)), ("slides", 1000, Path(a.shots))):
         size = build(ROOT / "docs" / "src" / f"{name}_src.html", ROOT / f"{name}.html", shots, svg, width)
         print(f"{name}.html: {size / 1e6:.2f} MB")
 
