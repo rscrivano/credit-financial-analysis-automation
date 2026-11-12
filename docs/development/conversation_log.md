@@ -628,3 +628,15 @@ Good Tokenomics evidence: one cost cut, measured before and after, with no loss 
 - Remaining: final fresh-clone check (around Nov 21–22) and submission by Nov 23, 11:59 PM.
 - Added the earlier conversation PDF (other Claude account, 5 pages, secret scan clean) to `docs/development/` at the user's request. Pushed.
 - **Comparison restored (2026-11-11):** the user wants a clear comparison with market products (it's in the instructions). Report section 3 now has the enhancements table plus a capability matrix comparing Bloomberg, S&P Capital IQ, bank spreading tools, general AI and CFAA (11 capabilities, plus time and cost). Slide 3 is the matrix. Report 15 pages, 10 slides.
+
+## 2026-11-11: Final pre-submission check (passed)
+Fresh clone of commit 1c2e237 from the public GitHub repo into `C:\cfaa_submit_check`, with `.env` one folder up holding only `PORTKEY_API_KEY` (as staff will have):
+- 82 files; no `.env` and no secrets in the repo.
+- README steps: venv plus `pip install -r requirements.txt` in **3 min 50 s**; **79/79 tests** pass.
+- `python app.py` serves the app (with the TO START and HOW TO USE guides).
+- Live SEC analysis of LUV in 7.4 s (BBB-, score 56).
+- AI answered on **gpt-6-luna** via the parent `.env` (1,824 tokens).
+- report.html: sections 2–8 in order after the title and links, 7 embedded images, no external resources, 15 printed pages.
+- slides.html: 10 slides, reveal.js from the CDN, 4 embedded images.
+- Repo rules met: `.env.example` has names only, `.env` is gitignored, `.env` is looked up in the repo then one folder up, the model defaults to gpt-6-luna and is configurable, and sample data is included.
+- **Ready to submit on Canvas:** repo link, report.html, slides.html.
