@@ -1036,8 +1036,9 @@ TAB_HELP = {
 }
 
 START = [
-    ("1", "Analyze a public company", ["Keep ", html.B("Public company"), " and ", html.B("Single ticker"), ", type a ticker such as ",
-                                        html.Code("LUV"), " and press ", html.B("GO"), ". About 10–30 seconds."]),
+    ("1", "Analyze a public company", ["Type the ticker you want to research (e.g. ", html.Code("LUV"), "), press ",
+                                        html.B("GO"), ", then check the ", html.B("industry sector"), " the app detected; "
+                                        "if it's wrong, pick the right one and the comparison updates. About 10–30 seconds."]),
     ("2", "Compare competitors", ["Click ", html.B("Compare companies"), ", enter two tickers (", html.Code("LUV"), ", ",
                                   html.Code("ULCC"), "), use ", html.B("+ Add company"), " for more, press ", html.B("COMPARE"),
                                   ". Use the VIEW toggle to open any one company in depth."]),

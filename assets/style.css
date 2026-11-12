@@ -169,3 +169,10 @@ ul { margin: 4px 0 4px 18px; padding: 0; }
 @media (max-width: 900px) { .steps { grid-template-columns: 1fr 1fr; } }
 @media (max-width: 560px) { .steps { grid-template-columns: 1fr; } .kpis { grid-template-columns: repeat(2, 1fr) !important; } }
 @media (max-width: 560px) { .controls { grid-template-columns: 1fr !important; } .hero h2 { font-size: 16px; } .opts { margin-top: 6px !important; } }
+
+/* ---------- start instruction ---------- */
+.instruct { display: flex; gap: 10px; align-items: baseline; flex-wrap: wrap; background: #1a1206; border: 1px solid var(--amber);
+            padding: 8px 12px; margin-bottom: 12px; font-size: 13px; line-height: 1.6; }
+.instruct-tag { background: var(--amber); color: #000; font-weight: 700; padding: 1px 8px; letter-spacing: .08em; }
+.instruct b { background: var(--amber); color: #000; padding: 0 6px; margin-right: 4px; }
+.instruct .arrow { color: var(--amber); font-weight: 700; }

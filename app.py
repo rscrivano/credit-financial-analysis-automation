@@ -69,6 +69,12 @@ app.layout = html.Div(className="wrap", children=[
     dcc.RadioItems(id="mode", value="public", className="segment", inline=True,
                    options=[{"label": "Public company", "value": "public"}, {"label": "Private company", "value": "private"}]),
     html.Div(className="card", children=[
+        html.Div(className="instruct", children=[
+            html.Span("TO START", className="instruct-tag"),
+            html.Span([html.B("1"), " Type the ticker of the company you want to research", html.Span(" → ", className="arrow"),
+                       html.B("2"), " Press GO", html.Span(" → ", className="arrow"),
+                       html.B("3"), " Check the industry sector it detected; if it's wrong, pick the right one and the analysis updates",
+                       html.Span("   (Private company: upload the statements, then pick the sector)", className="muted")])]),
         dcc.RadioItems(id="pub-mode", value="single", className="segment small-seg", inline=True,
                        options=[{"label": "Single ticker", "value": "single"}, {"label": "Compare companies", "value": "compare"}]),
         html.Div(id="cmp-in", style={"display": "none"}, children=[
@@ -79,7 +85,7 @@ app.layout = html.Div(className="wrap", children=[
                 html.Span(f"Up to {MAX_COMPANIES} companies. Figures for each company use code only; one AI call writes "
                           "the comparison.", className="muted small")])]),
         html.Div(id="public-in", className="controls", children=[
-            html.Div([html.Label("Ticker", htmlFor="ticker"),
+            html.Div([html.Label("Step 1 · Ticker of the company to research", htmlFor="ticker"),
                       html.Div(className="cmd", children=[html.Span(">", className="prompt"),
                                                           dcc.Input(id="ticker", type="text", placeholder="LUV", maxLength=10, n_submit=0)])]),
             html.Button("GO", id="go", className="btn", n_clicks=0),
@@ -92,7 +98,8 @@ app.layout = html.Div(className="wrap", children=[
                      children="The app reads the statements and notes, shows you what it read to confirm, then analyzes. "
                               "You can correct any number in the app afterwards.")]),
         html.Div(className="controls", style={"marginTop": "12px", "gridTemplateColumns": "1.4fr 1fr"}, children=[
-            html.Div([html.Label("Sector (detected for public companies; pick one for private)", htmlFor="sector"),
+            html.Div([html.Label("Step 3 · Industry sector (detected after GO for public companies; check it and change if needed. Pick one for private)",
+                                 htmlFor="sector"),
                       dcc.Dropdown(id="sector", options=sector_options(), placeholder="Select a sector", className="dd")]),
             html.Div(className="opts", style={"marginTop": "18px"}, children=[
                 dcc.Checklist(id="use-ai", options=[{"label": "AI analyst team (writes the analysis; uses tokens)", "value": "ai"}],
