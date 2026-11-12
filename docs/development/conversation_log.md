@@ -626,3 +626,4 @@ Good Tokenomics evidence: one cost cut, measured before and after, with no loss 
 - Exported the full development conversation (every user message and assistant reply, in order; tool calls omitted) to `docs/full_conversation.md` with `tools/export_conversation.py`: 122 messages from 2026-11-08 onward, secret check clean.
 - Copied both records (this log and the full conversation) into the repo under `docs/development/` so the development build-out is submitted with the code.
 - Remaining: final fresh-clone check (around Nov 21–22) and submission by Nov 23, 11:59 PM.
+- Added the earlier conversation PDF (other Claude account, 5 pages, secret scan clean) to `docs/development/` at the user's request. Pushed.
