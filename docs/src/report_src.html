@@ -111,30 +111,33 @@ per year, and even those leave the spreading, peer selection and write-up to the
 
 <!-- ============================================================ 3 -->
 <h2>3. What is new here</h2>
+<p>CFAA does the full first pass of a credit review on its own: spread, rating, debt structure, peer comparison,
+economic context and a written analysis. It brings together pieces that analysts normally assemble by hand from
+several sources. Its enhancements:</p>
 <table>
-  <tr><th>Product</th><th>What it does well</th><th>What it leaves to the analyst</th></tr>
-  <tr><td>Bloomberg Terminal</td><td>Market data, bond pricing, filings, news, agency ratings</td><td>Building the spread and scorecard, choosing peers, the written credit view; private companies not covered</td></tr>
-  <tr><td>S&amp;P Capital IQ</td><td>Standardized financials, screening, comparable companies</td><td>Rating logic, lease-adjusted view, stress tests, narrative; private statements must be keyed in</td></tr>
-  <tr><td>Moody's CreditLens and similar bank spreading tools</td><td>Spreading private statements, scorecards inside a lending workflow</td><td>Enterprise license and setup; economic and sector narrative written by hand</td></tr>
-  <tr><td>ChatGPT / general AI assistants</td><td>Fluent summaries of a filing</td><td>No reliable math, invented numbers, no rating method, no audit trail</td></tr>
-  <tr><td><b>This app (CFAA)</b></td><td colspan="2">Public <i>and</i> private companies in one tool; tested code for every number and rating; an AI analyst team for the narrative with quote and number checks; sector and named-peer benchmarks from 8,900+ SEC filers; stress tests; data-integrity red flags; a list of every assumption with options; comparisons, exports, a watchlist and an analyst chat.</td></tr>
+  <tr><th>Enhancement</th><th>What it means for the analyst</th></tr>
+  <tr><td><b>A complete analysis in minutes</b></td><td>One ticker or one upload produces the spread, credit score and ratings, debt maturities and liquidity, peer comparison, macro and industry view, stress tests, SWOT and a written analysis. Work that took up to 3 hours is ready in minutes.</td></tr>
+  <tr><td><b>Private companies treated like public ones</b></td><td>Upload a private company's statements (Excel or PDF, with notes) and get the same rating, peer benchmarks and economic analysis, so <b>companies with no public credit rating</b> can be assessed on the same basis.</td></tr>
+  <tr><td><b>Named public peers, automatically</b></td><td>Every company, including a private one, is compared with named public competitors and their median, drawn from 8,900+ SEC filers across 22 sectors.</td></tr>
+  <tr><td><b>Three rating views side by side</b></td><td>A credit score with Reported and Lease-adjusted ratings from a tested scorecard, plus an indicative S&amp;P-style rating (business × financial risk, liquidity) and any agency ratings disclosed in filings.</td></tr>
+  <tr><td><b>Debt and credit structure in one view</b></td><td>Maturity ladder, leases, credit lines, debt instruments from the 10-K and liquidity sources versus uses, with rate-shock, recession and reverse stress tests.</td></tr>
+  <tr><td><b>AI analysis you can trust</b></td><td>An AI analyst team writes the narrative, but code does every calculation. Every number the AI cites must be in the data and every quote must be in the filing, or the answer is rejected and retried.</td></tr>
+  <tr><td><b>Nothing hidden</b></td><td>Data errors are flagged in red (e.g., a balance sheet that doesn't balance), and every judgment call is listed with options. The analyst can change it and see the effect instantly, at no AI cost.</td></tr>
+  <tr><td><b>Built for the analyst's workflow</b></td><td>Side-by-side comparison of up to 10 companies, an Analyst case beside Reported, a chat that answers questions from the data, Excel and Word/PDF memo export, and a watchlist for new filings.</td></tr>
 </table>
-<p><b>Honest differentiation.</b> CFAA is not a replacement for a terminal: it has no market prices, spreads or
-bond-level recovery analysis. It is an <b>add-on</b> that does the first 90% of a credit review (the spread, the
-scorecard, the peer set, the economic context and a first draft) so the analyst starts from a complete, checkable
-picture. Three design choices set it apart from a general AI assistant:</p>
-<ul>
-  <li><b>The AI never does math.</b> Ratings come from my credit spread scorecard, ported from Excel and regression-tested
-    against the original workbooks. The AI cannot change a rating, only explain it.</li>
-  <li><b>Every number and quote is verified.</b> An AI output that cites a figure not in its data, or a quote not in the
-    filing, is rejected and retried, and is escalated after three attempts.</li>
-  <li><b>Nothing is silently assumed.</b> Judgment calls (business risk, lease treatment, cash netting, missing
-    revolver data) are listed with options, and changing one re-scores instantly without AI cost.</li>
-</ul>
+<h3>Where the time goes now</h3>
+<p>Before: the analyst's hours go to collecting filings, keying statements, computing ratios and finding peers. With
+CFAA, those steps take seconds to minutes, and the analyst's time goes to judgment: reviewing the results, testing
+their own view in the Analyst case, and understanding the company and its economics.</p>
+<p class="meta">How it compares: data platforms such as Bloomberg and S&amp;P Capital IQ supply filings and market data,
+bank spreading tools such as Moody's CreditLens spread private statements inside a lending system, and general AI
+assistants summarize documents. Each still leaves the rating, peer set, debt review or written analysis to the analyst,
+and none checks its AI output against the source numbers. CFAA is designed as an add-on to these tools, not a
+replacement: it has no market prices or bond-level recovery analysis.</p>
 
 <h3>What the analyst sees</h3>
-{{img:02_summary|Summary tab for NVIDIA (NVDA): credit score, Reported and Lease-adjusted ratings, indicative S&P-style rating, agency ratings, and the Report Writer's summary.|0-960}}
-{{img:10_comparison|Comparison mode: Southwest vs Frontier vs Delta side by side, with the best value in each row highlighted, a credit-score chart, a ranking and a written comparison. A toggle opens any one company in depth.|0-900}}
+{{img:02_summary|Summary tab for NVIDIA (NVDA): credit score, Reported and Lease-adjusted ratings, indicative S&P-style rating, agency ratings, and the Report Writer's summary.|0-840}}
+{{img:10_comparison|Comparison mode: Southwest vs Frontier vs Delta side by side, with the best value in each row highlighted, a credit-score chart, a ranking and a written comparison. A toggle opens any one company in depth.|0-780}}
 
 <h3>How well it works</h3>
 <ul>
@@ -191,8 +194,8 @@ An earlier Frontier (ULCC) run shows the failure path: the Macro Analyst and the
 check three times and escalated to the Manager, and the run still delivered every computed result with the problem
 shown on the Agents tab.</p>
 {{img:07_agents|Agents tab: what each analyst did, attempts, escalations to the Manager, and tokens used.|430-1226}}
-{{img:03_swot|SWOT tab: every item tagged with its source (computed data or an analyst whose output passed the checks).|430-1150}}
-{{img:05_debt_structure|Debt Structure tab: maturity ladder from the 10-K, leases, credit lines, and liquidity sources versus uses.|430-1150}}
+{{img:03_swot|SWOT tab: every item tagged with its source (computed data or an analyst whose output passed the checks).|430-1060}}
+{{img:05_debt_structure|Debt Structure tab: maturity ladder from the 10-K, leases, credit lines, and liquidity sources versus uses.|430-1060}}
 
 <!-- ============================================================ 5 -->
 <h2>5. Tokenomics</h2>
@@ -276,7 +279,6 @@ build the app, tested it and reviewed its output. Her assessment: the app is <b>
 <p>The user applied the app to economic analysis and to individual companies across airlines, technology and
 autos (Southwest, Frontier, Delta, NVIDIA, Palantir, Apple, Rivian), plus a private-company test. The biggest change
 is where the time goes: from collecting and calculating to judging.</p>
-{{img:08_chat_starter_answer|Ask the analyst: the starter question "Why did it get this rating?" is answered by code from the scorecard (0 tokens); other questions go to the AI with a number check.|0-427}}
 
 <!-- ============================================================ 8 -->
 <h2>8. Limits and next steps</h2>
