@@ -57,6 +57,8 @@ Stop the app with Ctrl+C.
 | `app.py` + `assets/style.css` | Dash web app: start page and guide, 11 tabs, compare mode, exports, watchlist, analyst chat |
 | `views.py` | Screens: tabs, comparison view, landing page, tab help |
 | `docs/user_guide.html`, `docs/agent_design.html` | First-time user guide; agent organization, guardrails and a traced run |
+| `docs/development/` | Development record: dated conversation log and the full build conversation |
+| `report.html`, `slides.html` | Final report and slide deck (built from `docs/src/` by `tools/build_docs.py`) |
 | `credit_engine/compare.py`, `chat.py`, `export.py`, `watch.py` | Comparison, analyst chat, Excel/Word/PDF exports, watchlist |
 | `credit_engine/integrity.py` | Data-integrity red flags (balance sheet, subtotals, signs, swings, YTD tie-out) |
 | `credit_engine/sector.py`, `config/sectors.json`, `data/benchmarks/` | 22 sectors, SEC-derived percentiles, health tiers |
