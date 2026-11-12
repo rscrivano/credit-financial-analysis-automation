@@ -69,7 +69,7 @@ the analyst's time goes to judgment. Analysts get clear, complete information fo
 investment and credit decisions, including for <b>private companies that have no public credit rating</b>. Code
 calculates every number; AI writes the analysis, and every figure it cites is checked against the data.</p></div>
 <p class="meta"><b>Author:</b> Ryan Scrivano · Yale MGMT 409 · November 2026<br>
-<b>Repository:</b> <a href="https://github.com/rscrivano/credit-financial-analysis-automation">github.com/rscrivano/credit-financial-analysis-automation</a> (private; <code>zlisto</code> invited)<br>
+<b>Repository:</b> <a href="https://github.com/rscrivano/credit-financial-analysis-automation">github.com/rscrivano/credit-financial-analysis-automation</a> (public)<br>
 <b>Run it:</b> local Dash app. Fresh clone + <code>pip install -r requirements.txt</code> + <code>python app.py</code>, with
 <code>.env</code> one folder up. Tested from a fresh copy: 4 min 41 s to install, 79/79 tests pass.<br>
 <b>Companion documents in the repo:</b> <code>docs/user_guide.html</code> (how to use it) and
@@ -326,12 +326,16 @@ qualitative/quantitative analysis to provide a rich depth of information at ones
 traded company or a private company. It saves time, allows for an analyst to quickly compare companies in the same
 sector, and analyze economic and financial information to conduct efficient investment research."<br>
 <span class="meta">— Ryan Scrivano, user, credit and investment-banking background</span></div>
+<div class="box"><b>Independent second user.</b> A second user with a finance and investment background, who did not
+build the app, tested it and reviewed its output. Her assessment: the app is <b>highly effective and useful</b>, and it
+<b>improves both time efficiency and the quality of information</b> available for the analysis.</div>
 <table>
   <tr><th>Measure</th><th>Before</th><th>With CFAA</th><th>Source</th></tr>
   <tr><td>Time to review a company's financials and build a credit spread</td><td>up to 3 hours</td><td>seconds to a few minutes (live SEC analysis of Delta, code only: 6 s)</td><td>user, measured app run</td></tr>
   <tr><td>Time saved per company</td><td colspan="2">about 2 h 55 min (≈ 97%), which goes to reviewing the results and understanding the company and its macro and micro economics</td><td>user</td></tr>
   <tr><td>Time back per analyst per month (20 new companies)</td><td colspan="2">up to about 58 hours</td><td>calculation</td></tr>
   <tr><td>AI cost per company</td><td colspan="2">≈ $0.05 (reference price), vs. hours of analyst time</td><td>token log</td></tr>
+  <tr><td>Users</td><td colspan="2">2 users with finance and investment backgrounds: the builder (daily use) and an independent second user (review and testing)</td><td>user feedback</td></tr>
   <tr><td>Quality</td><td colspan="2">every number from tested code; data errors flagged; every assumption listed; agency ratings shown beside indicative ones for calibration</td><td>tests, calibration</td></tr>
 </table>
 <p>The user applied the app to economic analysis and to individual companies across airlines, technology and
