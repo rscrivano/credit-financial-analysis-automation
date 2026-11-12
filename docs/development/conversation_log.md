@@ -627,3 +627,4 @@ Good Tokenomics evidence: one cost cut, measured before and after, with no loss 
 - Copied both records (this log and the full conversation) into the repo under `docs/development/` so the development build-out is submitted with the code.
 - Remaining: final fresh-clone check (around Nov 21–22) and submission by Nov 23, 11:59 PM.
 - Added the earlier conversation PDF (other Claude account, 5 pages, secret scan clean) to `docs/development/` at the user's request. Pushed.
+- **Comparison restored (2026-11-11):** the user wants a clear comparison with market products (it's in the instructions). Report section 3 now has the enhancements table plus a capability matrix comparing Bloomberg, S&P Capital IQ, bank spreading tools, general AI and CFAA (11 capabilities, plus time and cost). Slide 3 is the matrix. Report 15 pages, 10 slides.

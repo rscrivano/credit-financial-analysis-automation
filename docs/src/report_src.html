@@ -39,6 +39,11 @@
   .diagram svg { width:100%; min-width: 700px; height:auto; display:block; }
   .two { display:grid; grid-template-columns: 1fr 1fr; gap: 14px; }
   .pass { color: var(--good); font-weight:700; }
+  .matrix td.y { color: var(--good); font-weight: 700; text-align: center; }
+  .matrix td.p { color: var(--amber); text-align: center; }
+  .matrix td.no { color: var(--muted); text-align: center; }
+  .matrix tr.sum td { border-top: 1px solid var(--amber); font-weight: 700; }
+  .matrix td:last-child, .matrix th:last-child { background: rgba(255,160,40,.08); }
   @media (max-width: 680px) { .kpis { grid-template-columns: 1fr 1fr; } .two { grid-template-columns: 1fr; } h1 { font-size: 23px; } }
   @page { size: letter; margin: 0.5in; }
   @media print {
@@ -116,24 +121,23 @@ economic context and a written analysis. It brings together pieces that analysts
 several sources. Its enhancements:</p>
 <table>
   <tr><th>Enhancement</th><th>What it means for the analyst</th></tr>
-  <tr><td><b>A complete analysis in minutes</b></td><td>One ticker or one upload produces the spread, credit score and ratings, debt maturities and liquidity, peer comparison, macro and industry view, stress tests, SWOT and a written analysis. Work that took up to 3 hours is ready in minutes.</td></tr>
-  <tr><td><b>Private companies treated like public ones</b></td><td>Upload a private company's statements (Excel or PDF, with notes) and get the same rating, peer benchmarks and economic analysis, so <b>companies with no public credit rating</b> can be assessed on the same basis.</td></tr>
-  <tr><td><b>Named public peers, automatically</b></td><td>Every company, including a private one, is compared with named public competitors and their median, drawn from 8,900+ SEC filers across 22 sectors.</td></tr>
-  <tr><td><b>Three rating views side by side</b></td><td>A credit score with Reported and Lease-adjusted ratings from a tested scorecard, plus an indicative S&amp;P-style rating (business × financial risk, liquidity) and any agency ratings disclosed in filings.</td></tr>
-  <tr><td><b>Debt and credit structure in one view</b></td><td>Maturity ladder, leases, credit lines, debt instruments from the 10-K and liquidity sources versus uses, with rate-shock, recession and reverse stress tests.</td></tr>
-  <tr><td><b>AI analysis you can trust</b></td><td>An AI analyst team writes the narrative, but code does every calculation. Every number the AI cites must be in the data and every quote must be in the filing, or the answer is rejected and retried.</td></tr>
-  <tr><td><b>Nothing hidden</b></td><td>Data errors are flagged in red (e.g., a balance sheet that doesn't balance), and every judgment call is listed with options. The analyst can change it and see the effect instantly, at no AI cost.</td></tr>
-  <tr><td><b>Built for the analyst's workflow</b></td><td>Side-by-side comparison of up to 10 companies, an Analyst case beside Reported, a chat that answers questions from the data, Excel and Word/PDF memo export, and a watchlist for new filings.</td></tr>
+  <tr><td><b>A complete analysis in minutes</b></td><td>Spread, score, ratings, debt, peers, macro/micro, stress tests, SWOT and write-up from one ticker or upload: up to 3 hours → minutes.</td></tr>
+  <tr><td><b>Private companies treated like public ones</b></td><td>Upload statements (Excel/PDF with notes) and assess <b>companies with no public credit rating</b> on the same basis.</td></tr>
+  <tr><td><b>Named public peers, automatically</b></td><td>Named competitors and their median from 8,900+ SEC filers in 22 sectors, also for private companies.</td></tr>
+  <tr><td><b>Three rating views side by side</b></td><td>Reported and Lease-adjusted ratings from a tested scorecard, an indicative S&amp;P-style rating, and disclosed agency ratings.</td></tr>
+  <tr><td><b>Debt and credit structure in one view</b></td><td>Maturities, leases, credit lines, debt instruments and liquidity, with rate, recession and reverse stress tests.</td></tr>
+  <tr><td><b>AI analysis you can trust</b></td><td>Code does every calculation; every AI number must be in the data and every quote in the filing.</td></tr>
+  <tr><td><b>Nothing hidden</b></td><td>Red flags for data errors; every judgment call listed with options that re-score instantly.</td></tr>
+  <tr><td><b>Built for the analyst's workflow</b></td><td>Compare up to 10 companies, Analyst case, chat, Excel and memo export, watchlist.</td></tr>
 </table>
-<h3>Where the time goes now</h3>
-<p>Before: the analyst's hours go to collecting filings, keying statements, computing ratios and finding peers. With
-CFAA, those steps take seconds to minutes, and the analyst's time goes to judgment: reviewing the results, testing
-their own view in the Analyst case, and understanding the company and its economics.</p>
-<p class="meta">How it compares: data platforms such as Bloomberg and S&amp;P Capital IQ supply filings and market data,
-bank spreading tools such as Moody's CreditLens spread private statements inside a lending system, and general AI
-assistants summarize documents. Each still leaves the rating, peer set, debt review or written analysis to the analyst,
-and none checks its AI output against the source numbers. CFAA is designed as an add-on to these tools, not a
-replacement: it has no market prices or bond-level recovery analysis.</p>
+<h3>How CFAA compares with products on the market</h3>
+<p>Each product below is strong at what it was built for. CFAA's role is the first-pass credit analysis that the
+others leave to the analyst: it combines the rating, peers, debt review, economic context and a checked write-up in one
+place, for public and private companies alike.</p>
+<table class="matrix "><tr><th>Capability</th><th>Bloomberg Terminal</th><th>S&amp;P Capital IQ</th><th>Bank spreading tools (e.g., Moody's CreditLens)</th><th>General AI (e.g., ChatGPT)</th><th>CFAA</th></tr><tr><td>Public company financials (SEC filings)</td><td class="y">✓</td><td class="y">✓</td><td class="p">partial</td><td class="p">partial</td><td class="y">✓</td></tr><tr><td>Private company statements read from Excel/PDF</td><td class="no">–</td><td class="no">–</td><td class="y">✓</td><td class="p">partial</td><td class="y">✓</td></tr><tr><td>Credit score and rating from a scorecard</td><td class="p">partial</td><td class="p">partial</td><td class="y">✓</td><td class="no">–</td><td class="y">✓</td></tr><tr><td>Lease-adjusted and S&amp;P-style views side by side</td><td class="no">–</td><td class="no">–</td><td class="p">partial</td><td class="no">–</td><td class="y">✓</td></tr><tr><td>Named public peers and medians, also for private companies</td><td class="p">partial</td><td class="p">partial</td><td class="no">–</td><td class="no">–</td><td class="y">✓</td></tr><tr><td>Debt maturities, liquidity and stress tests in one view</td><td class="p">partial</td><td class="p">partial</td><td class="p">partial</td><td class="no">–</td><td class="y">✓</td></tr><tr><td>Macro and industry context with the company</td><td class="p">partial</td><td class="p">partial</td><td class="no">–</td><td class="p">partial</td><td class="y">✓</td></tr><tr><td>Written credit analysis drafted for the analyst</td><td class="no">–</td><td class="p">partial</td><td class="no">–</td><td class="y">✓</td><td class="y">✓</td></tr><tr><td>AI numbers and quotes checked against the source</td><td class="no">–</td><td class="no">–</td><td class="no">–</td><td class="no">–</td><td class="y">✓</td></tr><tr><td>Every assumption listed with options</td><td class="no">–</td><td class="no">–</td><td class="p">partial</td><td class="no">–</td><td class="y">✓</td></tr><tr><td>Market data: bond prices, spreads, CDS</td><td class="y">✓</td><td class="y">✓</td><td class="no">–</td><td class="no">–</td><td class="no">–</td></tr><tr class='sum'><td>Time to a full first-pass credit analysis</td><td>hours</td><td>hours</td><td>hours</td><td>hours (unverified)</td><td>minutes</td></tr><tr class='sum'><td>Typical cost</td><td>enterprise subscription</td><td>enterprise subscription</td><td>enterprise license</td><td>low monthly fee</td><td>≈ $0.05 of AI per company</td></tr></table>
+<p class="meta">✓ = built in; partial = available but separate, manual, or limited; – = not offered. Based on public
+product descriptions. CFAA is an add-on to these tools, not a replacement: it has no market prices or bond-level
+recovery analysis, which Bloomberg and Capital IQ provide.</p>
 
 <h3>What the analyst sees</h3>
 {{img:02_summary|Summary tab for NVIDIA (NVDA): credit score, Reported and Lease-adjusted ratings, indicative S&P-style rating, agency ratings, and the Report Writer's summary.|0-840}}
